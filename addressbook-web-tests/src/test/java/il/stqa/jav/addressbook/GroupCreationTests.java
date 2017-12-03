@@ -1,5 +1,6 @@
 package il.stqa.jav.addressbook;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -15,8 +16,15 @@ public class GroupCreationTests {
 
   @BeforeMethod
   public void setUp() throws Exception {
-    wd = new FirefoxDriver(new FirefoxOptions().setLegacy(true).setBinary("/Applications/FirefoxESR.app/Contents/MacOS/firefox-bin"));
-    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    String ffLocation = new String();
+    if (SystemUtils.IS_OS_LINUX) {
+      ffLocation = "/home/ilya/firefoxESR/firefox/firefox";
+    }
+    else if (SystemUtils.IS_OS_MAC) {
+      ffLocation = "/Applications/FirefoxESR.app/Contents/MacOS/firefox-bin";
+    }
+    wd = new FirefoxDriver(new
+            FirefoxOptions().setLegacy(true).setBinary(ffLocation));    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
     wd.get("http://192.168.56.101/addressbook/index.php");
     login("admin", "secret");
   }
