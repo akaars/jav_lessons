@@ -1,4 +1,4 @@
-package il.stqa.jav.addressbook;
+package il.stqa.jav.addressbook.model;
 
 public class GroupForm {
   private final String groupName;

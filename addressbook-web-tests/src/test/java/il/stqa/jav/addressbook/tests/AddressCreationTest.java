@@ -1,6 +1,7 @@
-package il.stqa.jav.addressbook;
+package il.stqa.jav.addressbook.tests;
 
 
+import il.stqa.jav.addressbook.model.AddressForm;
 import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
