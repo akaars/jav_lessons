@@ -15,6 +15,10 @@ public class HelperBase {
     wd.findElement(locator).click();
   }
 
+  protected void selectElement(By locator) {
+    wd.findElement(locator).isSelected();
+  }
+
   protected void sendText(By locator, String text) {
     clickElement(locator);
     wd.findElement(locator).clear();

@@ -21,4 +21,13 @@ public class AddrHelper extends HelperBase {
     sendText(By.name("home"), addressForm.getHomePhone());
     sendText(By.name("email"), addressForm.geteMail());
   }
+
+  public void updateAddressEntry() {
+    clickElement(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+  }
+
+  public void deleteAddressEntry() {
+    clickElement(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+  }
+
 }

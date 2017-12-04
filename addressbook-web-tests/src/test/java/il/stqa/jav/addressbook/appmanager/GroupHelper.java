@@ -34,4 +34,9 @@ public class GroupHelper extends HelperBase {
   public void selectGroup() {
     clickElement(By.name("selected[]"));
   }
+
+  public void initGroupUpdate() {
+    clickElement(By.name("edit"));
+  }
+
 }

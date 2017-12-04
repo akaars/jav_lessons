@@ -21,4 +21,12 @@ public class NavigationHelper extends HelperBase {
   }
 
   public void submit() { clickElement(By.name("submit")); }
+
+  public void update() { clickElement(By.name("update")); }
+
+  public void home() { clickElement(By.linkText("home page")); }
+
+  public void acceptAlert() { wd.switchTo().alert().accept(); }
+
+  public void selectFirstAvailableCheckbox() { clickElement(By.name("selected[]")); }
 }
