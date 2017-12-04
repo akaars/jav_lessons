@@ -17,3 +17,17 @@ gradlew*
 .idea/workspace.xml
 
 \.idea/libraries/Gradle__org_apache_commons_commons_lang3_3_7\.xml
+
+\.idea/libraries/Gradle__com_typesafe_config_1_2_1\.xml
+
+\.idea/libraries/Gradle__commons_io_commons_io_2_5\.xml
+
+\.idea/libraries/Gradle__io_github_bonigarcia_webdrivermanager_1_7_1\.xml
+
+\.idea/libraries/Gradle__org_apache_commons_commons_compress_1_9\.xml
+
+\.idea/libraries/Gradle__org_jsoup_jsoup_1_10_2\.xml
+
+\.idea/libraries/Gradle__org_rauschig_jarchivelib_0_7_1\.xml
+
+\.idea/libraries/Gradle__org_slf4j_slf4j_api_1_7_24\.xml
