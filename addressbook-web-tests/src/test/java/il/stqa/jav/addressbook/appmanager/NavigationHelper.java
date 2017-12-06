@@ -27,6 +27,4 @@ public class NavigationHelper extends HelperBase {
   public void home() { clickElement(By.linkText("home page")); }
 
   public void acceptAlert() { wd.switchTo().alert().accept(); }
-
-  public void selectFirstAvailableCheckbox() { clickElement(By.name("selected[]")); }
 }

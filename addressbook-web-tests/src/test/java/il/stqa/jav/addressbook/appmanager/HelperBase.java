@@ -15,15 +15,14 @@ public class HelperBase {
     wd.findElement(locator).click();
   }
 
-  protected void selectElement(By locator) {
-    wd.findElement(locator).isSelected();
-  }
 
   protected void sendText(By locator, String text) {
     clickElement(locator);
     wd.findElement(locator).clear();
     wd.findElement(locator).sendKeys(text);
   }
+
+  public void selectFirstAvailableCheckbox() { clickElement(By.name("selected[]")); }
 
   public static boolean isAlertPresent(FirefoxDriver wd) {
     try {
