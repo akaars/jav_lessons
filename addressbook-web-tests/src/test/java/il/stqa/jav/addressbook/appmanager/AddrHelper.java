@@ -2,10 +2,11 @@ package il.stqa.jav.addressbook.appmanager;
 
 import il.stqa.jav.addressbook.model.AddressForm;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class AddrHelper extends HelperBase {
-  public AddrHelper(FirefoxDriver wd) { super(wd); }
+  public AddrHelper(WebDriver wd) { super(wd); }
 
   public void gotoNewAddrLink() {
     clickElement(By.linkText("add new"));
