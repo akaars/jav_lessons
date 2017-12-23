@@ -6,16 +6,20 @@ public class AddressForm {
   private final String secondName;
   private final String nickName;
   private final String title;
+  private final String group;
   private final String physicalAddr;
   private final String homePhone;
   private final String eMail;
 
-  public AddressForm(String firstName, String midName, String secondName, String nickName, String title, String physicalAddr, String homePhone, String eMail) {
+
+  public AddressForm(String firstName, String midName, String secondName, String nickName, String title,
+                     String group, String physicalAddr, String homePhone, String eMail) {
     this.firstName = firstName;
     this.midName = midName;
     this.secondName = secondName;
     this.nickName = nickName;
     this.title = title;
+    this.group = group;
     this.physicalAddr = physicalAddr;
     this.homePhone = homePhone;
     this.eMail = eMail;
@@ -40,6 +44,8 @@ public class AddressForm {
   public String getTitle() {
     return title;
   }
+
+  public String getGroup() { return group; }
 
   public String getPhysicalAddr() {
     return physicalAddr;

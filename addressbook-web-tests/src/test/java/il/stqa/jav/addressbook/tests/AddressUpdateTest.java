@@ -8,8 +8,8 @@ public class AddressUpdateTest extends TestBase{
   public void testAddressUpdate() {
     app.getAddrHelper().updateAddressEntry();
     app.getAddrHelper().fillAddrForm(new AddressForm("Mike", "N", "Mickelsson",
-            "mickey_m", "Mr", "Somewhere over the rainbow, Baker st. 221",
-            "+44-2-12-85-06","test@mail.ru"));
+            "mickey_m", "Mr", null,"Somewhere over the rainbow, Baker st. 221",
+            "+44-2-12-85-06","test@mail.ru"), false);
     app.getNavigationHelper().update();
     app.getNavigationHelper().home();
   }

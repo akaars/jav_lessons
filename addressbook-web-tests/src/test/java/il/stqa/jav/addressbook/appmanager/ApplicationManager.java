@@ -61,7 +61,7 @@ public class ApplicationManager {
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
     addrHelper = new AddrHelper(wd);
-    wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
     wd.get("http://192.168.56.101/addressbook/index.php");
     sessionHelper.login("admin", "secret");
   }
