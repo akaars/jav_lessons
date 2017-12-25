@@ -1,5 +1,4 @@
 package il.stqa.jav.addressbook.appmanager;
-
 import il.stqa.jav.addressbook.model.GroupForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -39,4 +38,10 @@ public class GroupHelper extends HelperBase {
     clickElement(By.name("edit"));
   }
 
+  public void createGroup(GroupForm group) {
+    addNewGroup();
+    fillGroupForm(new GroupForm("test1", null, null));
+    new NavigationHelper(wd).submit();
+    returnToGroupPage();
+  }
 }

@@ -14,10 +14,18 @@ public class NavigationHelper extends HelperBase {
   }
 
   public void gotoGroupLink() {
+    if (isElementExists(By.tagName("h1"))
+            && wd.findElement(By.tagName("h1")).getText().equals("Group")
+            && isElementExists(By.name("new"))){
+      return;
+    }
     clickElement(By.linkText("groups"));
   }
 
   public void backToHome() {
+    if (isElementExists(By.id("maintable"))) {
+      return;
+    }
     clickElement(By.linkText("home page"));
   }
 
