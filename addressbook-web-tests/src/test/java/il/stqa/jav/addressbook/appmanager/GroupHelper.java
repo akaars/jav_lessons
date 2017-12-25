@@ -40,8 +40,12 @@ public class GroupHelper extends HelperBase {
 
   public void createGroup(GroupForm group) {
     addNewGroup();
-    fillGroupForm(new GroupForm("test1", null, null));
+    fillGroupForm(group);
     new NavigationHelper(wd).submit();
     returnToGroupPage();
+  }
+
+  public boolean isGroupExists() {
+    return isElementExists(By.name("selected[]"));
   }
 }

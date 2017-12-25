@@ -8,7 +8,7 @@ public class GroupModifyTest extends TestBase {
   public void testGroupUpdate(){
     app.getNavigationHelper().gotoGroupLink();
     if (! app.getGroupHelper().isGroupExists()) {
-      app.getGroupHelper().createGroup(new GroupForm("test1", "test6", "test7"));
+      app.getGroupHelper().createGroup(new GroupForm("test1", null, null));
     }
     app.getGroupHelper().selectFirstAvailableCheckbox();
     app.getGroupHelper().initGroupUpdate();

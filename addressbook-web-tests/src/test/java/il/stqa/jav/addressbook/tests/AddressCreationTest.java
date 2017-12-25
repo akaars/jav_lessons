@@ -10,8 +10,7 @@ public class AddressCreationTest extends TestBase{
   public void testNewAddressCreation() {
     app.getAddrHelper().gotoNewAddrLink();
     app.getAddrHelper().fillAddrForm(new AddressForm("John", "D", "Dow", null,
-            "Mr", "test1",null, "+44-2-12-85-06", "test@mail.ru"),
-            true);
+            "Mr", "test1",null, "+44-2-12-85-06", "test@mail.ru"));
     app.getNavigationHelper().submit();
     app.getNavigationHelper().backToHome();
   }

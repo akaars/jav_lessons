@@ -14,7 +14,7 @@ public class AddrHelper extends HelperBase {
     clickElement(By.linkText("add new"));
   }
 
-  public void fillAddrForm(AddressForm addressForm, boolean creation) {
+  public void fillAddrForm(AddressForm addressForm) {
     sendText(By.name("firstname"), addressForm.getFirstName());
     sendText(By.name("middlename"), addressForm.getMidName());
     sendText(By.name("lastname"), addressForm.getSecondName());
@@ -28,12 +28,23 @@ public class AddrHelper extends HelperBase {
     }
   }
 
+  public void createNewAddrEntry(AddressForm addrEntry) {
+    NavigationHelper tmpNavHelper = new NavigationHelper(wd);
+    gotoNewAddrLink();
+    fillAddrForm(addrEntry);
+    tmpNavHelper.submit();
+    tmpNavHelper.home();
+
+  }
   public void updateAddressEntry() {
-    clickElement(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    clickElement(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a"));
   }
 
   public void deleteAddressEntry() {
     clickElement(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
   }
 
+  public boolean isAddrEntryExists() {
+    return isElementExists(By.xpath("//table[@id='maintable']/tbody/tr/td"));
+  }
 }
