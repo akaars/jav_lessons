@@ -2,6 +2,10 @@ package il.stqa.jav.addressbook.appmanager;
 import il.stqa.jav.addressbook.model.GroupForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ilya on 12/3/17
@@ -30,8 +34,8 @@ public class GroupHelper extends HelperBase {
     clickElement(By.xpath("//div[@id='content']/form/input[5]"));
   }
 
-  public void selectGroup() {
-    clickElement(By.name("selected[]"));
+  public void selectGroup(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
   }
 
   public void initGroupUpdate() {
@@ -51,5 +55,17 @@ public class GroupHelper extends HelperBase {
 
   public int getGroupCount() {
     return wd.findElements(By.name("selected[]")).size();
+  }
+
+  public List<GroupForm> getGroupList() {
+    List<GroupForm> groups = new ArrayList<GroupForm>();
+    List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+    for (WebElement element: elements){
+      String name = element.getText();
+      GroupForm group = new GroupForm(name, null,null);
+      groups.add(group);
+
+    }
+    return groups;
   }
 }
