@@ -7,6 +7,7 @@ import il.stqa.jav.addressbook.model.GroupForm;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class GroupDeletionTest extends TestBase {
@@ -27,6 +28,6 @@ public class GroupDeletionTest extends TestBase {
     for (int i=0; i < after.size(); i++) {
       Assert.assertEquals(before.get(i), after.get(i));
     }
-    Assert.assertEquals(before, after);
+    Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
   }
 }
