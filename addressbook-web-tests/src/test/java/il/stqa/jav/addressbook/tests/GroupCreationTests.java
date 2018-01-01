@@ -14,11 +14,19 @@ public class GroupCreationTests extends TestBase{
   public void testGroupCreation() {
     app.getNavigationHelper().gotoGroupLink();
     List<GroupForm>  before=app.getGroupHelper().getGroupList();
-    app.getGroupHelper().createGroup(new GroupForm("test222", null, null));
+    GroupForm group = new GroupForm("test222", null, null);
+
+    app.getGroupHelper().createGroup(group);
     List<GroupForm>  after=app.getGroupHelper().getGroupList();
     Assert.assertEquals(after.size(), before.size() + 1);
-    GroupForm group = new GroupForm(after.get(before.size()).getGroupId(),"test222", null, null);
     before.add(group);
+    int max = 0;
+    for (GroupForm g: after) {
+      if (g.getGroupId() > max ) {
+        max = g.getGroupId();
+      }
+    }
+    group.setGroupId(max);
     Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
   }
 
