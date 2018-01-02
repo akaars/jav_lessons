@@ -4,8 +4,12 @@ import il.stqa.jav.addressbook.model.AddressForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddrHelper extends HelperBase {
   public AddrHelper(WebDriver wd) { super(wd); }
@@ -14,6 +18,18 @@ public class AddrHelper extends HelperBase {
     clickElement(By.linkText("add new"));
   }
 
+  public List<AddressForm> getAddrList(){
+    List<AddressForm> addrs = new ArrayList<AddressForm>();
+    List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
+    for (WebElement element : elements){
+      String secondName = element.findElement(By.xpath(".//td[2]")).getText();
+      String firstName = element.findElement(By.xpath(".//td[3]")).getText();
+      AddressForm addr = new AddressForm(firstName, null, secondName, null, null, null,
+              null, null, null);
+      addrs.add(addr);
+    }
+    return addrs;
+  }
   public void fillAddrForm(AddressForm addressForm) {
     sendText(By.name("firstname"), addressForm.getFirstName());
     sendText(By.name("middlename"), addressForm.getMidName());
@@ -24,7 +40,7 @@ public class AddrHelper extends HelperBase {
     sendText(By.name("home"), addressForm.getHomePhone());
     sendText(By.name("email"), addressForm.geteMail());
     if (isElementExists(By.name("new_group"))) {
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(addressForm.getGroup());
+      new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
     }
   }
 
@@ -41,7 +57,7 @@ public class AddrHelper extends HelperBase {
   }
 
   public void deleteAddressEntry() {
-    clickElement(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+    clickElement(By.xpath("//*[@id=\"content\"]/form[2]/div[2]/input"));
   }
 
   public boolean isAddrEntryExists() {

@@ -26,14 +26,14 @@ public class NavigationHelper extends HelperBase {
     if (isElementExists(By.id("maintable"))) {
       return;
     }
-    clickElement(By.linkText("home page"));
+    clickElement(By.linkText("home"));
   }
 
   public void submit() { clickElement(By.name("submit")); }
 
   public void update() { clickElement(By.name("update")); }
 
-  public void home() { clickElement(By.linkText("home page")); }
+  public void home() { clickElement(By.linkText("home")); }
 
   public void acceptAlert() { wd.switchTo().alert().accept(); }
 }

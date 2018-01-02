@@ -1,6 +1,9 @@
 package il.stqa.jav.addressbook.model;
 
+import java.util.Objects;
+
 public class AddressForm {
+
   private final String firstName;
   private final String midName;
   private final String secondName;
@@ -58,4 +61,28 @@ public class AddressForm {
   public String geteMail() {
     return eMail;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    AddressForm that = (AddressForm) o;
+    return Objects.equals(firstName, that.firstName) &&
+//            Objects.equals(midName, that.midName) &&
+              Objects.equals(secondName, that.secondName);
+//            Objects.equals(nickName, that.nickName) &&
+//            Objects.equals(title, that.title) &&
+//            Objects.equals(group, that.group) &&
+//            Objects.equals(physicalAddr, that.physicalAddr) &&
+//            Objects.equals(homePhone, that.homePhone) &&
+//            Objects.equals(eMail, that.eMail);
+  }
+
+  @Override
+  public int hashCode() {
+
+//    return Objects.hash(firstName, midName, secondName, nickName, title, group, physicalAddr, homePhone, eMail);
+    return Objects.hash(firstName, secondName);
+  }
+
 }
