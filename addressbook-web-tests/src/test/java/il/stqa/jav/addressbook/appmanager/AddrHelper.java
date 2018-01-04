@@ -2,30 +2,30 @@ package il.stqa.jav.addressbook.appmanager;
 
 import il.stqa.jav.addressbook.model.AddressForm;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class AddrHelper extends HelperBase {
-  public AddrHelper(WebDriver wd) { super(wd); }
+  AddrHelper(WebDriver wd) { super(wd); }
 
-  public void gotoNewAddrLink() {
+  private void gotoNewAddrLink() {
     clickElement(By.linkText("add new"));
   }
 
-  public List<AddressForm> getAddrList(){
+  public void acceptAlert() { wd.switchTo().alert().accept(); }
+
+  public List<AddressForm> list(){
     List<AddressForm> addrs = new ArrayList<AddressForm>();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
     for (WebElement element : elements){
       String secondName = element.findElement(By.xpath(".//td[2]")).getText();
       String firstName = element.findElement(By.xpath(".//td[3]")).getText();
-      AddressForm addr = new AddressForm(firstName, null, secondName, null, null, null,
-              null, null, null);
+      AddressForm addr = new AddressForm().withFirstName(firstName).withSecondName(secondName);
       addrs.add(addr);
     }
     return addrs;
@@ -44,7 +44,7 @@ public class AddrHelper extends HelperBase {
     }
   }
 
-  public void createNewAddrEntry(AddressForm addrEntry) {
+  public void add(AddressForm addrEntry) {
     NavigationHelper tmpNavHelper = new NavigationHelper(wd);
     gotoNewAddrLink();
     fillAddrForm(addrEntry);
@@ -52,6 +52,17 @@ public class AddrHelper extends HelperBase {
     tmpNavHelper.home();
 
   }
+
+  public void delete() {
+    deleteAddressEntry();
+    acceptAlert();
+    try {
+      TimeUnit.SECONDS.sleep(1);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
   public void updateAddressEntry() {
     clickElement(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a"));
   }

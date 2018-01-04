@@ -5,6 +5,7 @@ package il.stqa.jav.addressbook.tests;
 
 import il.stqa.jav.addressbook.model.GroupForm;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.HashSet;
@@ -12,17 +13,20 @@ import java.util.List;
 
 public class GroupDeletionTest extends TestBase {
 
+  @BeforeMethod
+  public void ensurePrecondition() {
+    app.goTo().groupLink();
+    if (app.group().list().size() == 0) {
+      app.group().create(new GroupForm().withName("test1"));
+    }
+  }
+
   @Test
   public void testGroupDeletion() {
-    app.getNavigationHelper().gotoGroupLink();
-    if (! app.getGroupHelper().isGroupExists()) {
-      app.getGroupHelper().createGroup(new GroupForm("test1", null, null));
-    }
-    List<GroupForm> before=app.getGroupHelper().getGroupList();
-    app.getGroupHelper().selectGroup(before.size() - 1);
-    app.getGroupHelper().deleteSelectedGroup();
-    app.getGroupHelper().returnToGroupPage();
-    List<GroupForm>  after=app.getGroupHelper().getGroupList();
+    List<GroupForm> before=app.group().list();
+    int index = before.size() - 1;
+    app.group().delete(index);
+    List<GroupForm>  after=app.group().list();
     Assert.assertEquals(after.size(), before.size()-1);
     before.remove(before.size() - 1);
     for (int i=0; i < after.size(); i++) {
@@ -30,4 +34,5 @@ public class GroupDeletionTest extends TestBase {
     }
     Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
   }
+
 }

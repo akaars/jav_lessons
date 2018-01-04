@@ -13,7 +13,7 @@ public class NavigationHelper extends HelperBase {
     super(wd);
   }
 
-  public void gotoGroupLink() {
+  public void groupLink() {
     if (isElementExists(By.tagName("h1"))
             && wd.findElement(By.tagName("h1")).getText().equals("Group")
             && isElementExists(By.name("new"))){
@@ -35,5 +35,4 @@ public class NavigationHelper extends HelperBase {
 
   public void home() { clickElement(By.linkText("home")); }
 
-  public void acceptAlert() { wd.switchTo().alert().accept(); }
 }

@@ -4,28 +4,59 @@ import java.util.Objects;
 
 public class AddressForm {
 
-  private final String firstName;
-  private final String midName;
-  private final String secondName;
-  private final String nickName;
-  private final String title;
-  private final String group;
-  private final String physicalAddr;
-  private final String homePhone;
-  private final String eMail;
+  private String firstName;
+  private String midName;
+  private String secondName;
+  private String nickName;
+  private String title;
+  private String group;
+  private String physicalAddr;
+  private String homePhone;
+  private String eMail;
 
-
-  public AddressForm(String firstName, String midName, String secondName, String nickName, String title,
-                     String group, String physicalAddr, String homePhone, String eMail) {
+  public AddressForm withFirstName(String firstName) {
     this.firstName = firstName;
+    return this;
+  }
+
+  public AddressForm withMidName(String midName) {
     this.midName = midName;
+    return this;
+  }
+
+  public AddressForm withSecondName(String secondName) {
     this.secondName = secondName;
+    return this;
+  }
+
+  public AddressForm withNickName(String nickName) {
     this.nickName = nickName;
+    return this;
+  }
+
+  public AddressForm withTitle(String title) {
     this.title = title;
+    return this;
+  }
+
+  public AddressForm withGroup(String group) {
     this.group = group;
+    return this;
+  }
+
+  public AddressForm withPhysicalAddr(String physicalAddr) {
     this.physicalAddr = physicalAddr;
+    return this;
+  }
+
+  public AddressForm withHomePhone(String homePhone) {
     this.homePhone = homePhone;
+    return this;
+  }
+
+  public AddressForm withEmail(String eMail) {
     this.eMail = eMail;
+    return this;
   }
 
   public String getFirstName() {
@@ -63,26 +94,25 @@ public class AddressForm {
   }
 
   @Override
+  public String toString() {
+    return "AddressForm{" +
+            "firstName='" + firstName + '\'' +
+            ", secondName='" + secondName + '\'' +
+            '}';
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AddressForm that = (AddressForm) o;
     return Objects.equals(firstName, that.firstName) &&
-//            Objects.equals(midName, that.midName) &&
-              Objects.equals(secondName, that.secondName);
-//            Objects.equals(nickName, that.nickName) &&
-//            Objects.equals(title, that.title) &&
-//            Objects.equals(group, that.group) &&
-//            Objects.equals(physicalAddr, that.physicalAddr) &&
-//            Objects.equals(homePhone, that.homePhone) &&
-//            Objects.equals(eMail, that.eMail);
+            Objects.equals(secondName, that.secondName);
   }
 
   @Override
   public int hashCode() {
 
-//    return Objects.hash(firstName, midName, secondName, nickName, title, group, physicalAddr, homePhone, eMail);
     return Objects.hash(firstName, secondName);
   }
-
 }

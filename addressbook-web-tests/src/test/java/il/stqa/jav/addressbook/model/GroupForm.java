@@ -3,27 +3,29 @@ package il.stqa.jav.addressbook.model;
 import java.util.Objects;
 
 public class GroupForm {
-  private int groupId;
-  private final String groupName;
-  private final String header;
-  private final String footer;
+  private int groupId = Integer.MAX_VALUE;
+  private String groupName;
+  private String header;
+  private String footer;
 
-  public void setGroupId(int groupId) {
+  public GroupForm withId(int groupId) {
     this.groupId = groupId;
+    return this;
   }
 
-  public GroupForm(String groupName, String header, String footer) {
-    this.groupId = 0;
+  public GroupForm withName(String groupName) {
     this.groupName = groupName;
-    this.header = header;
-    this.footer = footer;
+    return this;
   }
 
-  public GroupForm(int groupId, String groupName, String header, String footer) {
-    this.groupId = groupId;
-    this.groupName = groupName;
+  public GroupForm withHeader(String header) {
     this.header = header;
+    return this;
+  }
+
+  public GroupForm withFooter(String footer) {
     this.footer = footer;
+    return this;
   }
 
   public int getGroupId() { return groupId; }

@@ -16,11 +16,11 @@ public class GroupHelper extends HelperBase {
     super(wd);
   }
 
-  public void returnToGroupPage() {
+  public void gotoGroupPage() {
     clickElement(By.linkText("group page"));
   }
 
-  public void fillGroupForm(GroupForm groupForm) {
+  public void fillForm(GroupForm groupForm) {
     sendText(By.name("group_name"), groupForm.getGroupName());
     sendText(By.name("group_header"), groupForm.getHeader());
     sendText(By.name("group_footer"), groupForm.getFooter());
@@ -30,42 +30,39 @@ public class GroupHelper extends HelperBase {
     clickElement(By.name("new"));
   }
 
-  public void deleteSelectedGroup() {
+  public void delete() {
     clickElement(By.xpath("//div[@id='content']/form/input[5]"));
   }
 
-  public void selectGroup(int index) {
+  public void select(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
-  public void initGroupUpdate() {
+  public void update() {
     clickElement(By.name("edit"));
   }
 
-  public void createGroup(GroupForm group) {
+  public void create(GroupForm group) {
     addNewGroup();
-    fillGroupForm(group);
+    fillForm(group);
     new NavigationHelper(wd).submit();
-    returnToGroupPage();
+    gotoGroupPage();
   }
 
-  public boolean isGroupExists() {
-    return isElementExists(By.name("selected[]"));
+
+  public void delete(int index) {
+    select(index);
+    delete();
+    gotoGroupPage();
   }
 
-  public int getGroupCount() {
-    return wd.findElements(By.name("selected[]")).size();
-  }
-
-  public List<GroupForm> getGroupList() {
+  public List<GroupForm> list() {
     List<GroupForm> groups = new ArrayList<GroupForm>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element: elements){
       String name = element.getText();
       int groupId = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      GroupForm group = new GroupForm(groupId, name, null,null);
-      groups.add(group);
-
+      groups.add(new GroupForm().withId(groupId).withName(name));
     }
     return groups;
   }
