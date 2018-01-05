@@ -1,36 +1,33 @@
 package il.stqa.jav.addressbook.tests;
 
 import il.stqa.jav.addressbook.model.AddressForm;
-import org.testng.Assert;
+import il.stqa.jav.addressbook.model.Addrs;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.HashSet;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AddressUpdateTest extends TestBase{
 
   @BeforeMethod
   public void ensurePreconditions() {
-    if (app.addr().list().size() == 0){
+    if (app.addr().all().size() == 0){
       app.addr().add(new AddressForm().withFirstName("John").withSecondName("Dow"));
     }
   }
 
   @Test
   public void testAddressUpdate() {
-    List<AddressForm> before =  app.addr().list();
-    app.addr().updateAddressEntry();
+    Addrs before =  app.addr().all();
+    AddressForm addrToUpdate = before.iterator().next();
     AddressForm addrForm = new
-            AddressForm().withFirstName("Mike").withMidName("N").withSecondName("Mickelsson").
-            withNickName("mickey_m").withTitle("Mr").withPhysicalAddr("Somewhere over the rainbow, Baker st. 221").
-            withHomePhone("+44-2-12-85-06").withEmail("test@mail.ru");
-    app.addr().fillAddrForm(addrForm);
-    app.addr().update();
+            AddressForm().withFirstName("Mike").withSecondName("Mickelsson").withId(addrToUpdate.getId());
+    app.addr().updateAddress(addrToUpdate, addrForm);
     app.goTo().home();
-    List<AddressForm> after =  app.addr().list();
-    before.remove(0);
-    before.add(addrForm);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    Addrs after =  app.addr().all();
+    assertThat(after.size(), equalTo(before.size()));
+    assertThat(after, equalTo(before.without(addrToUpdate).withAdded(addrForm)));
   }
+
 }

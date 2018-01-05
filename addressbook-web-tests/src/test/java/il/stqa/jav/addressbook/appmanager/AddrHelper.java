@@ -1,6 +1,9 @@
 package il.stqa.jav.addressbook.appmanager;
 
 import il.stqa.jav.addressbook.model.AddressForm;
+import il.stqa.jav.addressbook.model.Addrs;
+import il.stqa.jav.addressbook.model.GroupForm;
+import il.stqa.jav.addressbook.model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,17 +22,19 @@ public class AddrHelper extends HelperBase {
 
   public void acceptAlert() { wd.switchTo().alert().accept(); }
 
-  public List<AddressForm> list(){
-    List<AddressForm> addrs = new ArrayList<AddressForm>();
+
+  public Addrs all() {
+    Addrs addrs = new Addrs();
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
-    for (WebElement element : elements){
+    for (WebElement element: elements){
       String secondName = element.findElement(By.xpath(".//td[2]")).getText();
       String firstName = element.findElement(By.xpath(".//td[3]")).getText();
-      AddressForm addr = new AddressForm().withFirstName(firstName).withSecondName(secondName);
-      addrs.add(addr);
+      int addrId = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      addrs.add(new AddressForm().withId(addrId).withFirstName(firstName).withSecondName(secondName));
     }
     return addrs;
   }
+
   public void fillAddrForm(AddressForm addressForm) {
     sendText(By.name("firstname"), addressForm.getFirstName());
     sendText(By.name("middlename"), addressForm.getMidName());
@@ -53,9 +58,10 @@ public class AddrHelper extends HelperBase {
 
   }
 
-  public void update() { clickElement(By.cssSelector("input[name='update']")); }
+  public void submitUpdate() { clickElement(By.cssSelector("input[name='update']")); }
 
-  public void delete() {
+  public void delete(AddressForm addr) {
+    selectById(addr.getId());
     deleteAddressEntry();
     acceptAlert();
     try {
@@ -65,15 +71,22 @@ public class AddrHelper extends HelperBase {
     }
   }
 
-  public void updateAddressEntry() {
-    clickElement(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a"));
+  public void updateAddress(AddressForm addrEntry, AddressForm updatedAddrForm) {
+    editEntry(addrEntry);
+    fillAddrForm(updatedAddrForm);
+    submitUpdate();
+  }
+  public void editEntry(AddressForm addr) {
+    WebElement entry = wd.findElement(By.cssSelector("input[value='" + addr.getId() + "'"));
+    entry.findElement(By.xpath("//td[8]/a")).click();
   }
 
   public void deleteAddressEntry() {
-    clickElement(By.xpath("//*[@id=\"content\"]/form[2]/div[2]/input"));
+    clickElement(By.cssSelector("input[value='Delete']"));
   }
 
-  public boolean isAddrEntryExists() {
-    return isElementExists(By.xpath("//table[@id='maintable']/tbody/tr/td"));
+  public void selectById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "'")).click();
   }
+
 }

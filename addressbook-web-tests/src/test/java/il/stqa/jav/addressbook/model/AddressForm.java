@@ -13,6 +13,7 @@ public class AddressForm {
   private String physicalAddr;
   private String homePhone;
   private String eMail;
+  private int id = Integer.MAX_VALUE;;
 
   public AddressForm withFirstName(String firstName) {
     this.firstName = firstName;
@@ -58,6 +59,14 @@ public class AddressForm {
     this.eMail = eMail;
     return this;
   }
+  public AddressForm withId(int id) {
+    this.id = id;
+    return this;
+  }
+
+  public int getId() {
+    return id;
+  }
 
   public String getFirstName() {
     return firstName;
@@ -94,25 +103,29 @@ public class AddressForm {
   }
 
   @Override
-  public String toString() {
-    return "AddressForm{" +
-            "firstName='" + firstName + '\'' +
-            ", secondName='" + secondName + '\'' +
-            '}';
-  }
-
-  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     AddressForm that = (AddressForm) o;
     return Objects.equals(firstName, that.firstName) &&
-            Objects.equals(secondName, that.secondName);
+            Objects.equals(secondName, that.secondName) &&
+            Objects.equals(id, that.id);
   }
 
   @Override
   public int hashCode() {
 
-    return Objects.hash(firstName, secondName);
+    return Objects.hash(firstName, secondName, id);
   }
+
+  @Override
+  public String toString() {
+    return "AddressForm{" +
+            "firstName='" + firstName + '\'' +
+            ", secondName='" + secondName + '\'' +
+            ", id='" + id + '\'' +
+            '}';
+  }
+
+
 }

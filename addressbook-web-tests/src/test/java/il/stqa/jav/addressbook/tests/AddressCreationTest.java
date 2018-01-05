@@ -2,22 +2,23 @@ package il.stqa.jav.addressbook.tests;
 
 
 import il.stqa.jav.addressbook.model.AddressForm;
-import org.testng.Assert;
+import il.stqa.jav.addressbook.model.Addrs;
 import org.testng.annotations.Test;
 
-import java.util.HashSet;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AddressCreationTest extends TestBase{
 
   @Test
   public void testNewAddressCreation() {
-    List<AddressForm> before = app.addr().list();
+    Addrs before = app.addr().all();
     AddressForm newAddrGroup =
-            new AddressForm().withFirstName("John").withSecondName("Dow").withHomePhone("+44-2-12-85-06").withEmail("test@mail.ru");
+            new AddressForm().withFirstName("John").withSecondName("Dow");
     app.addr().add(newAddrGroup);
-    List<AddressForm> after = app.addr().list();
-    before.add(newAddrGroup);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    Addrs after = app.addr().all();
+    assertThat(before.size()+1, equalTo(after.size()));
+    assertThat(after,
+            equalTo(before.withAdded(newAddrGroup.withId(after.stream().mapToInt((a)->a.getId()).max().getAsInt()))));
   }
 }
