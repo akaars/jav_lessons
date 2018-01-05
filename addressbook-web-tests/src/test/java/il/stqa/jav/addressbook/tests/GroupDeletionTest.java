@@ -8,31 +8,27 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 public class GroupDeletionTest extends TestBase {
 
   @BeforeMethod
   public void ensurePrecondition() {
     app.goTo().groupLink();
-    if (app.group().list().size() == 0) {
+    if (app.group().all().size() == 0) {
       app.group().create(new GroupForm().withName("test1"));
     }
   }
 
   @Test
   public void testGroupDeletion() {
-    List<GroupForm> before=app.group().list();
-    int index = before.size() - 1;
-    app.group().delete(index);
-    List<GroupForm>  after=app.group().list();
+    Set<GroupForm> before=app.group().all();
+    GroupForm deletedGroup = before.iterator().next();
+    app.group().delete(deletedGroup);
+    Set<GroupForm>  after=app.group().all();
     Assert.assertEquals(after.size(), before.size()-1);
-    before.remove(before.size() - 1);
-    for (int i=0; i < after.size(); i++) {
-      Assert.assertEquals(before.get(i), after.get(i));
-    }
-    Assert.assertEquals(new HashSet<>(before), new HashSet<>(after));
+    before.remove(deletedGroup);
+    Assert.assertEquals(before, after);
   }
 
 }

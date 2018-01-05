@@ -26,7 +26,7 @@ public class AddressUpdateTest extends TestBase{
             withNickName("mickey_m").withTitle("Mr").withPhysicalAddr("Somewhere over the rainbow, Baker st. 221").
             withHomePhone("+44-2-12-85-06").withEmail("test@mail.ru");
     app.addr().fillAddrForm(addrForm);
-    app.goTo().update();
+    app.addr().update();
     app.goTo().home();
     List<AddressForm> after =  app.addr().list();
     before.remove(0);

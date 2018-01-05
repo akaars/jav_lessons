@@ -4,8 +4,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by ilya on 12/3/17
@@ -34,13 +35,15 @@ public class GroupHelper extends HelperBase {
     clickElement(By.xpath("//div[@id='content']/form/input[5]"));
   }
 
-  public void select(int index) {
+  public void selectByIndex(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
-  public void update() {
+  public void edit() {
     clickElement(By.name("edit"));
   }
+
+  public void update() { clickElement(By.cssSelector("input[name='update']")); }
 
   public void create(GroupForm group) {
     addNewGroup();
@@ -49,15 +52,27 @@ public class GroupHelper extends HelperBase {
     gotoGroupPage();
   }
 
+  public void updateGroup(GroupForm group) {
+    selectById(group.getGroupId());
+    edit();
+    fillForm(group);
+    update();
+    gotoGroupPage();
+  }
 
-  public void delete(int index) {
-    select(index);
+  public void delete(GroupForm group) {
+    selectById(group.getGroupId());
     delete();
     gotoGroupPage();
   }
 
-  public List<GroupForm> list() {
-    List<GroupForm> groups = new ArrayList<GroupForm>();
+  public void selectById(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "'")).click();
+  }
+
+
+  public Set<GroupForm> all() {
+    Set<GroupForm> groups = new HashSet<GroupForm>();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element: elements){
       String name = element.getText();
@@ -66,4 +81,5 @@ public class GroupHelper extends HelperBase {
     }
     return groups;
   }
+
 }

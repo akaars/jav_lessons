@@ -43,6 +43,14 @@ public class GroupForm {
   }
 
   @Override
+  public String toString() {
+    return "GroupForm{" +
+            "groupId='" + groupId + '\'' +
+            ", groupName='" + groupName + '\'' +
+            '}';
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
@@ -56,13 +64,4 @@ public class GroupForm {
 
     return Objects.hash(groupId, groupName);
   }
-
-  @Override
-  public String toString() {
-    return "GroupForm{" +
-            "groupId='" + groupId + '\'' +
-            ", groupName='" + groupName + '\'' +
-            '}';
-  }
-
 }

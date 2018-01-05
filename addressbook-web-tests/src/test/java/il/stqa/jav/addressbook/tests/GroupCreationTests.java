@@ -4,8 +4,7 @@ import il.stqa.jav.addressbook.model.GroupForm;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 
 public class GroupCreationTests extends TestBase{
@@ -13,15 +12,15 @@ public class GroupCreationTests extends TestBase{
   @Test
   public void testGroupCreation() {
     app.goTo().groupLink();
-    List<GroupForm>  before=app.group().list();
+    Set<GroupForm> before=app.group().all();
     GroupForm group = new GroupForm().withName("test225");
 
     app.group().create(group);
-    List<GroupForm>  after=app.group().list();
+    Set<GroupForm>after=app.group().all();
     Assert.assertEquals(after.size(), before.size() + 1);
-    group.withId(after.stream().max((o1, o2) -> Integer.compare(o1.getGroupId(), o2.getGroupId())).get().getGroupId());
+    group.withId(after.stream().mapToInt((g)->g.getGroupId()).max().getAsInt());
     before.add(group);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    Assert.assertEquals(before, after);
   }
 
 }

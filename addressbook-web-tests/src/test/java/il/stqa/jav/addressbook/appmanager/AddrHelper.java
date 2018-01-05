@@ -53,6 +53,8 @@ public class AddrHelper extends HelperBase {
 
   }
 
+  public void update() { clickElement(By.cssSelector("input[name='update']")); }
+
   public void delete() {
     deleteAddressEntry();
     acceptAlert();
