@@ -33,3 +33,7 @@ gradlew*
 \.idea/libraries/Gradle__org_slf4j_slf4j_api_1_7_24\.xml
 
 \.idea/libraries/Gradle__org_hamcrest_java_hamcrest_2_0_0_0\.xml
+
+\.idea/modules/addressbook-web-tests_main\.iml
+
+\.idea/modules/addressbook-web-tests_test\.iml

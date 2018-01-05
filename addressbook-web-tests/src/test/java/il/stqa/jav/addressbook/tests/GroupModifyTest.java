@@ -2,12 +2,8 @@ package il.stqa.jav.addressbook.tests;
 
 import il.stqa.jav.addressbook.model.GroupForm;
 import il.stqa.jav.addressbook.model.Groups;
-import org.hamcrest.CoreMatchers;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
