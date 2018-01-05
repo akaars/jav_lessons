@@ -1,5 +1,6 @@
 package il.stqa.jav.addressbook.appmanager;
 import il.stqa.jav.addressbook.model.GroupForm;
+import il.stqa.jav.addressbook.model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -71,8 +72,8 @@ public class GroupHelper extends HelperBase {
   }
 
 
-  public Set<GroupForm> all() {
-    Set<GroupForm> groups = new HashSet<GroupForm>();
+  public Groups all() {
+    Groups groups = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element: elements){
       String name = element.getText();

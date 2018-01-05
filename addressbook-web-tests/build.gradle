@@ -9,4 +9,5 @@ dependencies {
     compile 'org.seleniumhq.selenium:selenium-java:3.8.0'
     compile 'org.apache.commons:commons-lang3:3.7'
     compile 'io.github.bonigarcia:webdrivermanager:1.7.1'
+    compile 'org.hamcrest:java-hamcrest:2.0.0.0'
 }
