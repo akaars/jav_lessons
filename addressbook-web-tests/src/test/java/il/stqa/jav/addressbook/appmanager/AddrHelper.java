@@ -27,7 +27,9 @@ public class AddrHelper extends HelperBase {
       String secondName = element.findElement(By.xpath(".//td[2]")).getText();
       String firstName = element.findElement(By.xpath(".//td[3]")).getText();
       int addrId = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      addrs.add(new AddressForm().withId(addrId).withFirstName(firstName).withSecondName(secondName));
+      String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
+      addrs.add(new AddressForm().withId(addrId).withFirstName(firstName).withSecondName(secondName)
+      .withHomePhone(phones[0]).withMobile(phones[1]).withWork(phones[2]));
     }
     return addrs;
   }
@@ -85,4 +87,21 @@ public class AddrHelper extends HelperBase {
     wd.findElement(By.cssSelector("input[value='" + id + "'")).click();
   }
 
+
+  public AddressForm getAddrDetailsFromEdit(AddressForm addr) {
+    AddressForm address = new AddressForm();
+    editAddressEntry(addr);
+    address.withFirstName(wd.findElement(By.cssSelector("input[name='firstname']")).getAttribute("value"))
+            .withSecondName(wd.findElement(By.cssSelector("input[name='lastname']")).getAttribute("value"))
+            .withHomePhone(wd.findElement(By.cssSelector("input[name='home']")).getAttribute("value"))
+            .withMobile(wd.findElement(By.cssSelector("input[name='mobile']")).getAttribute("value"))
+            .withWork(wd.findElement(By.cssSelector("input[name='work']")).getAttribute("value"))
+            .withPhysicalAddr(wd.findElement(By.cssSelector("textarea[name='address']")).getAttribute("value"))
+            .withPhysicalAddr2(wd.findElement(By.cssSelector("textarea[name='address2']")).getAttribute("value"))
+            .withEmail(wd.findElement(By.cssSelector("input[name='email']")).getAttribute("value"))
+            .witheMail2(wd.findElement(By.cssSelector("input[name='email2']")).getAttribute("value"))
+            .witheteMail3(wd.findElement(By.cssSelector("input[name='email3']")).getAttribute("value"))
+            .withId(addr.getId());
+    return address;
+  }
 }

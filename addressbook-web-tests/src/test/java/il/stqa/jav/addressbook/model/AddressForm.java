@@ -11,8 +11,13 @@ public class AddressForm {
   private String title;
   private String group;
   private String physicalAddr;
+  private String physicalAddr2;
   private String homePhone;
+  private String mobile;
+  private String work;
   private String eMail;
+  private String eMail2;
+  private String eMail3;
   private int id = Integer.MAX_VALUE;;
 
   public AddressForm withFirstName(String firstName) {
@@ -50,8 +55,24 @@ public class AddressForm {
     return this;
   }
 
+  public AddressForm withPhysicalAddr2(String physicalAddr2) {
+    this.physicalAddr2 = physicalAddr2;
+    return this;
+  }
+
   public AddressForm withHomePhone(String homePhone) {
     this.homePhone = homePhone;
+    return this;
+  }
+
+
+  public AddressForm withMobile(String mobile) {
+    this.mobile = mobile;
+    return this;
+  }
+
+  public AddressForm withWork(String work) {
+    this.work = work;
     return this;
   }
 
@@ -59,6 +80,20 @@ public class AddressForm {
     this.eMail = eMail;
     return this;
   }
+
+
+  public AddressForm witheMail2(String eMail2) {
+    this.eMail2 = eMail2;
+    return this;
+  }
+
+
+  public AddressForm witheteMail3(String eMail3) {
+    this.eMail3 = eMail3;
+    return this;
+  }
+
+
   public AddressForm withId(int id) {
     this.id = id;
     return this;
@@ -67,6 +102,7 @@ public class AddressForm {
   public int getId() {
     return id;
   }
+
 
   public String getFirstName() {
     return firstName;
@@ -94,13 +130,24 @@ public class AddressForm {
     return physicalAddr;
   }
 
+  public String getPhysicalAddr2() { return physicalAddr2; }
+
   public String getHomePhone() {
     return homePhone;
   }
 
+  public String getWork() { return work; }
+
+  public String getMobile() { return mobile; }
+
   public String geteMail() {
     return eMail;
   }
+
+  public String geteMail2() { return eMail2; }
+
+  public String geteMail3() { return eMail3; }
+
 
   @Override
   public boolean equals(Object o) {
