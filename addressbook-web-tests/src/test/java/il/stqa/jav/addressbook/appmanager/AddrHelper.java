@@ -2,14 +2,11 @@ package il.stqa.jav.addressbook.appmanager;
 
 import il.stqa.jav.addressbook.model.AddressForm;
 import il.stqa.jav.addressbook.model.Addrs;
-import il.stqa.jav.addressbook.model.GroupForm;
-import il.stqa.jav.addressbook.model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -72,13 +69,12 @@ public class AddrHelper extends HelperBase {
   }
 
   public void updateAddress(AddressForm addrEntry, AddressForm updatedAddrForm) {
-    editEntry(addrEntry);
+    editAddressEntry(addrEntry);
     fillAddrForm(updatedAddrForm);
     submitUpdate();
   }
-  public void editEntry(AddressForm addr) {
-    WebElement entry = wd.findElement(By.cssSelector("input[value='" + addr.getId() + "'"));
-    entry.findElement(By.xpath("//td[8]/a")).click();
+  public void editAddressEntry(AddressForm addr) {
+    wd.findElement(By.xpath(String.format("//input[@value='%s']/../../td[8]/a", addr.getId()))).click();
   }
 
   public void deleteAddressEntry() {
