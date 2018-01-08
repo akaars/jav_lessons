@@ -13,12 +13,16 @@ public class AddressForm {
   private String physicalAddr;
   private String physicalAddr2;
   private String homePhone;
+  private String homePhone2;
   private String mobile;
   private String work;
   private String eMail;
   private String eMail2;
   private String eMail3;
+  private String allPhones;
+  private String allEmails;
   private int id = Integer.MAX_VALUE;;
+
 
   public AddressForm withFirstName(String firstName) {
     this.firstName = firstName;
@@ -65,6 +69,10 @@ public class AddressForm {
     return this;
   }
 
+  public AddressForm withHomePhone2(String homePhone2) {
+    this.homePhone2 = homePhone2;
+    return this;
+  }
 
   public AddressForm withMobile(String mobile) {
     this.mobile = mobile;
@@ -99,10 +107,20 @@ public class AddressForm {
     return this;
   }
 
+  public AddressForm withAllPhones(String allPhones) {
+    this.allPhones = allPhones;
+    return this;
+  }
+
+  public AddressForm withAllEmails(String allEmails) {
+    this.allEmails = allEmails;
+    return this;
+  }
+
+
   public int getId() {
     return id;
   }
-
 
   public String getFirstName() {
     return firstName;
@@ -136,6 +154,8 @@ public class AddressForm {
     return homePhone;
   }
 
+  public String getHomePhone2() { return homePhone2; }
+
   public String getWork() { return work; }
 
   public String getMobile() { return mobile; }
@@ -148,6 +168,9 @@ public class AddressForm {
 
   public String geteMail3() { return eMail3; }
 
+  public String getAllPhones() { return allPhones; }
+
+  public String getAllEmails() { return allEmails; }
 
   @Override
   public boolean equals(Object o) {

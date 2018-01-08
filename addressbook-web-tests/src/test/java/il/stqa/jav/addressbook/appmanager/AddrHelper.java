@@ -27,9 +27,11 @@ public class AddrHelper extends HelperBase {
       String secondName = element.findElement(By.xpath(".//td[2]")).getText();
       String firstName = element.findElement(By.xpath(".//td[3]")).getText();
       int addrId = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
+      String homeAddress = element.findElement(By.xpath(".//td[4]")).getText();
+      String allEmails = element.findElement(By.xpath(".//td[5]")).getText();
+      String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
       addrs.add(new AddressForm().withId(addrId).withFirstName(firstName).withSecondName(secondName)
-      .withHomePhone(phones[0]).withMobile(phones[1]).withWork(phones[2]));
+      .withPhysicalAddr(homeAddress).withAllEmails(allEmails).withAllPhones(allPhones));
     }
     return addrs;
   }
@@ -94,6 +96,7 @@ public class AddrHelper extends HelperBase {
     address.withFirstName(wd.findElement(By.cssSelector("input[name='firstname']")).getAttribute("value"))
             .withSecondName(wd.findElement(By.cssSelector("input[name='lastname']")).getAttribute("value"))
             .withHomePhone(wd.findElement(By.cssSelector("input[name='home']")).getAttribute("value"))
+            .withHomePhone2(wd.findElement(By.cssSelector("input[name='phone2']")).getAttribute("value"))
             .withMobile(wd.findElement(By.cssSelector("input[name='mobile']")).getAttribute("value"))
             .withWork(wd.findElement(By.cssSelector("input[name='work']")).getAttribute("value"))
             .withPhysicalAddr(wd.findElement(By.cssSelector("textarea[name='address']")).getAttribute("value"))
