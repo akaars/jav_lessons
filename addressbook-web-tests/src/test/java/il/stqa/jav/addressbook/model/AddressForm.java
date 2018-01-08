@@ -1,5 +1,6 @@
 package il.stqa.jav.addressbook.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class AddressForm {
@@ -22,7 +23,13 @@ public class AddressForm {
   private String allPhones;
   private String allEmails;
   private int id = Integer.MAX_VALUE;;
+  private File photo;
 
+
+  public AddressForm withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
 
   public AddressForm withFirstName(String firstName) {
     this.firstName = firstName;
@@ -163,14 +170,6 @@ public class AddressForm {
   public String geteMail() {
     return eMail;
   }
-
-  public String geteMail2() { return eMail2; }
-
-  public String geteMail3() { return eMail3; }
-
-  public String getAllPhones() { return allPhones; }
-
-  public String getAllEmails() { return allEmails; }
 
   @Override
   public boolean equals(Object o) {

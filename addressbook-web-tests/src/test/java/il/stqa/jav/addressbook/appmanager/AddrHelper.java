@@ -48,6 +48,7 @@ public class AddrHelper extends HelperBase {
     if (isElementExists(By.name("new_group"))) {
       new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
     }
+    attach(By.name("photo"), addressForm.getPhoto());
   }
 
   public void add(AddressForm addrEntry) {
