@@ -171,6 +171,16 @@ public class AddressForm {
     return eMail;
   }
 
+  public String geteMail2() { return eMail2; }
+
+  public String geteMail3() { return eMail3; }
+
+  public String getAllPhones() { return allPhones; }
+
+  public String getAllEmails() { return allEmails; }
+
+  public File getPhoto() { return photo; }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -195,6 +205,7 @@ public class AddressForm {
             ", id='" + id + '\'' +
             '}';
   }
+
 
 
 }
