@@ -11,4 +11,5 @@ dependencies {
     compile 'io.github.bonigarcia:webdrivermanager:1.7.1'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
     compile 'com.thoughtworks.xstream:xstream:1.4.10-java7'
+    compile 'com.google.code.gson:gson:2.8.2'
 }
