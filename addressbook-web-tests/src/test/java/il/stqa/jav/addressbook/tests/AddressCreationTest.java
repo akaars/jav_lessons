@@ -42,12 +42,13 @@ public class AddressCreationTest extends TestBase{
 
   @DataProvider
   public Iterator<Object[]> validGroupsJson() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/addrs.json")));
     String json = "";
-    String line = reader.readLine();
-    while (line != null) {
-      json += line;
-      line = reader.readLine();
+    try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/addrs.json")))) {
+      String line = reader.readLine();
+      while (line != null) {
+        json += line;
+        line = reader.readLine();
+      }
     }
     Gson gson = new Gson();
     List<AddressForm> addrs = gson.fromJson(json, new TypeToken<List<AddressForm>>(){}.getType());

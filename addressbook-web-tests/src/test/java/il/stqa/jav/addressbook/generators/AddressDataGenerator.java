@@ -19,7 +19,7 @@ public class AddressDataGenerator {
   @Parameter(names = "-c", description = "Addresses count")
   public int count;
 
-  @Parameter(names = "-f", description = "Target file name")
+  @Parameter(names = "-f", required=true, description = "Target file name")
   public String file;
 
 
@@ -43,9 +43,9 @@ public class AddressDataGenerator {
     Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting()
             .create();
     String json = gson.toJson(addrs);
-    Writer writer = new FileWriter(file);
-    writer.write(json);
-    writer.close();
+    try(Writer writer = new FileWriter(file)){
+      writer.write(json);
+    }
   }
 
   private List<AddressForm> generateAddress(int count) {
