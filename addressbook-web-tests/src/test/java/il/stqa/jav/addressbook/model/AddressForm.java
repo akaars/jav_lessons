@@ -1,24 +1,33 @@
 package il.stqa.jav.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.io.File;
 import java.util.Objects;
 
 public class AddressForm {
-
+  @Expose
   private String firstName;
   private String midName;
+  @Expose
   private String secondName;
   private String nickName;
   private String title;
   private String group;
   private String physicalAddr;
   private String physicalAddr2;
+  @Expose
   private String homePhone;
   private String homePhone2;
+  @Expose
   private String mobile;
+  @Expose
   private String work;
+  @Expose
   private String eMail;
+  @Expose
   private String eMail2;
+  @Expose
   private String eMail3;
   private String allPhones;
   private String allEmails;
@@ -103,7 +112,7 @@ public class AddressForm {
   }
 
 
-  public AddressForm witheteMail3(String eMail3) {
+  public AddressForm witheMail3(String eMail3) {
     this.eMail3 = eMail3;
     return this;
   }
