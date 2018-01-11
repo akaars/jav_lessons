@@ -10,9 +10,6 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.7'
     compile 'io.github.bonigarcia:webdrivermanager:1.7.1'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
-<<<<<<< HEAD
     compile 'com.beust:jcommander:1.72'
-=======
     compile 'com.thoughtworks.xstream:xstream:1.4.10-java7'
->>>>>>> f2934857fbb3587de9c0c70e237df9ac5833f9e3
 }
