@@ -20,6 +20,7 @@ public class AddressCreationTest extends TestBase{
 
   @Test(enabled=true, dataProvider = "validGroupsJson")
   public void testNewAddressCreation(AddressForm addr) {
+    app.goTo().home();
     Addrs before = app.addr().all();
     File photo = new File("src/test/resources/avatar.jpg");
     addr.withPhoto(photo);

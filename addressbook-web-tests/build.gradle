@@ -1,3 +1,5 @@
+import org.gradle.api.tasks.testing.Test
+
 apply plugin: 'java'
 
 repositories {
@@ -13,4 +15,21 @@ dependencies {
     compile 'com.beust:jcommander:1.72'
     compile 'com.thoughtworks.xstream:xstream:1.4.10-java7'
     compile 'com.google.code.gson:gson:2.8.2'
+}
+
+
+task testGroups(type: Test) {
+    useTestNG{
+        suites '/src/test/resources/testng-groups.xml'
+    }
+}
+
+task testContacts(type: Test) {
+    useTestNG{
+        suites '/src/test/resources/testng-contacts.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+
 }
