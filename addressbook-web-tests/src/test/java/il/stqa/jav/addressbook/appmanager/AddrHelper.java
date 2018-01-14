@@ -44,7 +44,12 @@ public class AddrHelper extends HelperBase {
     sendText(By.name("title"), addressForm.getTitle());
     sendText(By.name("address"), addressForm.getPhysicalAddr());
     sendText(By.name("home"), addressForm.getHomePhone());
+    sendText(By.name("mobile"), addressForm.getMobile());
+    sendText(By.name("work"), addressForm.getWork());
     sendText(By.name("email"), addressForm.geteMail());
+    sendText(By.name("email2"), addressForm.geteMail2());
+    sendText(By.name("email3"), addressForm.geteMail3());
+
     if (isElementExists(By.name("new_group"))) {
       new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
     }
@@ -104,7 +109,7 @@ public class AddrHelper extends HelperBase {
             .withPhysicalAddr2(wd.findElement(By.cssSelector("textarea[name='address2']")).getAttribute("value"))
             .withEmail(wd.findElement(By.cssSelector("input[name='email']")).getAttribute("value"))
             .witheMail2(wd.findElement(By.cssSelector("input[name='email2']")).getAttribute("value"))
-            .witheteMail3(wd.findElement(By.cssSelector("input[name='email3']")).getAttribute("value"))
+            .witheMail3(wd.findElement(By.cssSelector("input[name='email3']")).getAttribute("value"))
             .withId(addr.getId());
     return address;
   }

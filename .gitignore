@@ -43,3 +43,8 @@ gradlew*
 \.idea/modules\.xml
 
 \.idea/modules/jav_lessons-addressbook-web-tests_main\.iml
+.idea/compiler.xml
+.idea/compiler.xml
+.idea/modules.xml
+*.csv
+*.xml

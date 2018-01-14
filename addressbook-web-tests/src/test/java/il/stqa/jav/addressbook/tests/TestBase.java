@@ -10,7 +10,7 @@ import org.testng.annotations.BeforeSuite;
  */
 public class TestBase {
 
-  protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME, false);
+  protected static final ApplicationManager app = new ApplicationManager(BrowserType.CHROME, true);
 
   @BeforeSuite
   public void setUp() throws Exception {
