@@ -1,0 +1,22 @@
+[
+  {
+    "firstName": "FirstName1",
+    "secondName": "SecondName1",
+    "homePhone": "+11 22 333451",
+    "mobile": "+2222222-1",
+    "work": "03344 1",
+    "eMail": "firstEmail1@test.com",
+    "eMail2": "secondEmail1@test.com",
+    "eMail3": "thirdEmail1@test.com"
+  },
+  {
+    "firstName": "FirstName2",
+    "secondName": "SecondName2",
+    "homePhone": "+11 22 333452",
+    "mobile": "+2222222-2",
+    "work": "03344 2",
+    "eMail": "firstEmail2@test.com",
+    "eMail2": "secondEmail2@test.com",
+    "eMail3": "thirdEmail2@test.com"
+  }
+]
