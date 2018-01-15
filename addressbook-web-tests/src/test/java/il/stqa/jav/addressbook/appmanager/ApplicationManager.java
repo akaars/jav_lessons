@@ -8,12 +8,18 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.BrowserType;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ilya on 12/3/17
  */
 public class ApplicationManager {
+  private final Properties properties;
   WebDriver wd;
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
@@ -25,19 +31,22 @@ public class ApplicationManager {
   public ApplicationManager(String browser, boolean isHeadless) {
     this.browser = browser;
     this.isHeadless = isHeadless;
+    properties = new Properties();
   }
 
 
-  public void init() {
+  public void init() throws IOException {
+    String target = System.getProperty("target", "local");
+    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
     if (browser.equals(BrowserType.FIREFOX)) {
       String ffLocation = new String();
       if (SystemUtils.IS_OS_LINUX) {
-        ffLocation = "/home/ilya/firefoxESR/firefox/firefox";
+        ffLocation = properties.getProperty("ff.linuxLocation");
       } else if (SystemUtils.IS_OS_MAC) {
-        ffLocation = "/Applications/FirefoxESR.app/Contents/MacOS/firefox-bin";
+        ffLocation = properties.getProperty("ff.macLocation");
       }
       FirefoxOptions options = new FirefoxOptions();
-      options.addArguments("window-size=1200x600");
+      options.addArguments(String.format("window-size=%s", properties.getProperty("web.windowSize")));
       options.setLegacy(true);
       options.setBinary(ffLocation);
       if (isHeadless) {
@@ -46,7 +55,7 @@ public class ApplicationManager {
       wd = new FirefoxDriver(options);
     } else if (browser.equals(BrowserType.CHROME)) {
       ChromeOptions options = new ChromeOptions();
-      options.addArguments("window-size=1200x600");
+      options.addArguments(String.format("window-size=%s", properties.getProperty("web.windowSize")));
       if (isHeadless) {
         options.setHeadless(true);
       }
@@ -60,9 +69,9 @@ public class ApplicationManager {
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
     addrHelper = new AddrHelper(wd);
-    wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-    wd.get("http://192.168.56.101/addressbook/index.php");
-    sessionHelper.login("admin", "secret");
+    wd.manage().timeouts().implicitlyWait(Integer.parseInt((properties.getProperty("wd.Timeout"))), TimeUnit.SECONDS);
+    wd.get(properties.getProperty("web.baseUrl"));
+    sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPass"));
   }
 
 
