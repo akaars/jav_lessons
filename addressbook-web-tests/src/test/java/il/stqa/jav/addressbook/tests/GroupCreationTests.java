@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import il.stqa.jav.addressbook.model.GroupForm;
 import il.stqa.jav.addressbook.model.Groups;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -63,6 +65,7 @@ public class GroupCreationTests extends TestBase{
 
   @Test(dataProvider = "validGroupsJson")
   public void testGroupCreation(GroupForm testGroup) {
+    logger.info("Start test testGroupCreation");
     app.goTo().groupLink();
     Groups before=app.group().all();
     app.group().create(testGroup);
@@ -70,6 +73,7 @@ public class GroupCreationTests extends TestBase{
     assertThat(app.group().count(), equalTo(before.size()+1));
     assertThat(after,
             equalTo(before.withAdded(testGroup.withId(after.stream().mapToInt((g)->g.getGroupId()).max().getAsInt()))));
+
   }
 
   @Test
