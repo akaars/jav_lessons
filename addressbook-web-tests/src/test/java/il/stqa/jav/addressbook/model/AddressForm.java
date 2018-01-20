@@ -1,42 +1,66 @@
 package il.stqa.jav.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 import java.util.Objects;
 
+@Entity
+@Table(name="addressbook")
 public class AddressForm {
   @Expose
+  @Column(name="firstname")
   private String firstName;
   private String midName;
   @Expose
+  @Column(name="lastname")
   private String secondName;
   private String nickName;
   private String title;
+  @Transient
   private String group;
   private String physicalAddr;
   private String physicalAddr2;
   @Expose
+  @Column(name="home")
+  @Type(type="text")
   private String homePhone;
   private String homePhone2;
   @Expose
+  @Type(type="text")
+  @Column(name="mobile")
   private String mobile;
   @Expose
+  @Type(type="text")
+  @Column(name="work")
   private String work;
   @Expose
+  @Type(type="text")
+  @Column(name="email")
   private String eMail;
   @Expose
+  @Type(type="text")
+  @Column(name="email2")
   private String eMail2;
   @Expose
+  @Type(type="text")
+  @Column(name="email3")
   private String eMail3;
+  @Transient
   private String allPhones;
+  @Transient
   private String allEmails;
-  private int id = Integer.MAX_VALUE;;
-  private File photo;
+  @Id
+  @Column(name="id")
+  private int id = Integer.MAX_VALUE;
+  @Column(name="photo")
+  private String photo;
 
 
   public AddressForm withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -188,7 +212,7 @@ public class AddressForm {
 
   public String getAllEmails() { return allEmails; }
 
-  public File getPhoto() { return photo; }
+  public File getPhoto() { return new File(photo); }
 
   @Override
   public boolean equals(Object o) {
