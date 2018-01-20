@@ -41,7 +41,7 @@ public class HbConnectionTest {
   public void testHbConnection(){
     Session session = sessionFactory.openSession();
     session.beginTransaction();
-    List<AddressForm> result = session.createQuery( "from AddressForm" ).list();
+    List<AddressForm> result = session.createQuery( "from AddressForm where deprecated='0000-00-00'" ).list();
     for ( AddressForm address : result ) {
       System.out.println(address);
     }

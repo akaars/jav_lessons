@@ -66,6 +66,23 @@ public class GroupForm {
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    GroupForm groupForm = (GroupForm) o;
+    return groupId == groupForm.groupId &&
+            Objects.equals(groupName, groupForm.groupName) &&
+            Objects.equals(header, groupForm.header) &&
+            Objects.equals(footer, groupForm.footer);
+  }
+
+  @Override
+  public int hashCode() {
+
+    return Objects.hash(groupId, groupName, header, footer);
+  }
+
+  @Override
   public String toString() {
     return "GroupForm{" +
             "groupId='" + groupId + '\'' +
@@ -73,18 +90,4 @@ public class GroupForm {
             '}';
   }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    GroupForm groupForm = (GroupForm) o;
-    return groupId == groupForm.groupId &&
-            Objects.equals(groupName, groupForm.groupName);
-  }
-
-  @Override
-  public int hashCode() {
-
-    return Objects.hash(groupId, groupName);
-  }
 }

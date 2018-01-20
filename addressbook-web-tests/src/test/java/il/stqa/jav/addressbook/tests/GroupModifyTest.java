@@ -12,21 +12,22 @@ public class GroupModifyTest extends TestBase {
 
   @BeforeMethod
   public void ensurePrecondition() {
-    app.goTo().groupLink();
-    if (app.group().all().size() == 0) {
+    if (app.db().groups().size()== 0) {
+      app.goTo().groupLink();
       app.group().create(new GroupForm().withName("test1"));
     }
   }
 
   @Test
   public void testGroupUpdate(){
-    Groups before=app.group().all();
+    Groups before=app.db().groups();
     GroupForm updateGroup = before.iterator().next();
-    GroupForm group = new GroupForm().withId(updateGroup.getGroupId()).withName("test2").withHeader("test6").
+    GroupForm group = new GroupForm().withId(updateGroup.getGroupId()).withName("modified name").withHeader("test6").
             withFooter("test7");
+    app.goTo().groupLink();
     app.group().updateGroup(group);
-    assertThat(app.group().count(), equalTo(before.size()));
-    Groups after=app.group().all();
+    Groups after=app.db().groups();
+    assertThat(after.size(), equalTo(before.size()));
     assertThat(before.without(updateGroup).withAdded(group), equalTo(after));
   }
 

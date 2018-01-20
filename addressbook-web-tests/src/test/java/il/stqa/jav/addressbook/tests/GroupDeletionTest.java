@@ -16,19 +16,20 @@ public class GroupDeletionTest extends TestBase {
 
   @BeforeMethod
   public void ensurePrecondition() {
-    app.goTo().groupLink();
-    if (app.group().all().size() == 0) {
-      app.group().create(new GroupForm().withName("test1"));
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupLink();
+      app.group().create(new GroupForm().withName("deletion test"));
     }
   }
 
   @Test
   public void testGroupDeletion() {
-    Groups before=app.group().all();
+    Groups before=app.db().groups();
     GroupForm deletedGroup = before.iterator().next();
+    app.goTo().groupLink();
     app.group().delete(deletedGroup);
-    assertThat(app.group().count(), equalTo(before.size()-1));
-    Groups  after=app.group().all();
+    Groups  after=app.db().groups();
+    assertThat(after.size(), equalTo(before.size()-1));
     Assert.assertEquals(before.without(deletedGroup), after);
   }
 

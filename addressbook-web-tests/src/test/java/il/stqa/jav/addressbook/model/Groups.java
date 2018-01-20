@@ -2,7 +2,9 @@ package il.stqa.jav.addressbook.model;
 
 import com.google.common.collect.ForwardingSet;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Groups extends ForwardingSet<GroupForm> {
@@ -15,6 +17,10 @@ public class Groups extends ForwardingSet<GroupForm> {
 
   public Groups() {
     this.delegate = new HashSet<GroupForm> ();
+  }
+
+  public Groups(Collection<GroupForm> groups) {
+    this.delegate = new HashSet<GroupForm> (groups);
   }
 
   @Override

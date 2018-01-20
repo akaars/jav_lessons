@@ -2,7 +2,9 @@ package il.stqa.jav.addressbook.model;
 
 import com.google.common.collect.ForwardingSet;
 
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Addrs extends ForwardingSet<AddressForm> {
@@ -15,6 +17,10 @@ public class Addrs extends ForwardingSet<AddressForm> {
 
   public Addrs() {
     this.delegate = new HashSet<AddressForm> ();
+  }
+
+  public Addrs(Collection<AddressForm> addrs) {
+    this.delegate = new HashSet<AddressForm>(addrs);
   }
 
   @Override

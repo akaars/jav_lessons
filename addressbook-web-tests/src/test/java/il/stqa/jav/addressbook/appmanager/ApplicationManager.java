@@ -27,6 +27,7 @@ public class ApplicationManager {
   private AddrHelper addrHelper;
   private String browser;
   private boolean isHeadless;
+  private DbHelper dbHelper;
 
   public ApplicationManager(String browser, boolean isHeadless) {
     this.browser = browser;
@@ -38,6 +39,8 @@ public class ApplicationManager {
   public void init() throws IOException {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+    dbHelper = new DbHelper();
+
     if (browser.equals(BrowserType.FIREFOX)) {
       String ffLocation = new String();
       if (SystemUtils.IS_OS_LINUX) {
@@ -94,4 +97,6 @@ public class ApplicationManager {
   public AddrHelper addr() {
     return addrHelper;
   }
+
+  public DbHelper db() { return dbHelper; }
 }

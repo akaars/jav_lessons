@@ -13,6 +13,7 @@ public class AddressForm {
   @Expose
   @Column(name="firstname")
   private String firstName;
+  @Column(name="middlename")
   private String midName;
   @Expose
   @Column(name="lastname")
@@ -21,12 +22,18 @@ public class AddressForm {
   private String title;
   @Transient
   private String group;
+  @Column(name="address")
+  @Type(type="text")
   private String physicalAddr;
+  @Column(name="address2")
+  @Type(type="text")
   private String physicalAddr2;
   @Expose
   @Column(name="home")
   @Type(type="text")
   private String homePhone;
+  @Column(name="phone2")
+  @Type(type="text")
   private String homePhone2;
   @Expose
   @Type(type="text")
@@ -56,6 +63,7 @@ public class AddressForm {
   @Column(name="id")
   private int id = Integer.MAX_VALUE;
   @Column(name="photo")
+  @Type(type="text")
   private String photo;
 
 

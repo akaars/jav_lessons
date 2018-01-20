@@ -22,6 +22,7 @@ public class TestBase {
   protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME),
           Boolean.parseBoolean(System.getProperty("headless", "false")));
 
+
   @BeforeSuite
   public void setUp() throws Exception {
     app.init();
