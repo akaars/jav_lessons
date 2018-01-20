@@ -46,5 +46,7 @@ gradlew*
 .idea/compiler.xml
 .idea/compiler.xml
 .idea/modules.xml
+hibernate-tutorials/*
 *.csv
 *.xml
+*.log
