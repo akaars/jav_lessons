@@ -20,12 +20,12 @@ public class AddressCreationTest extends TestBase{
 
   @Test(enabled=true, dataProvider = "validGroupsJson")
   public void testNewAddressCreation(AddressForm addr) {
-    app.goTo().home();
-    Addrs before = app.addr().all();
+    Addrs before = app.db().addrs();
     File photo = new File("src/test/resources/avatar.jpg");
     addr.withPhoto(photo);
+    app.goTo().home();
     app.addr().add(addr);
-    Addrs after = app.addr().all();
+    Addrs after = app.db().addrs();
     assertThat(before.size()+1, equalTo(after.size()));
     assertThat(after,
             equalTo(before.withAdded(addr.withId(after.stream().mapToInt((a)->a.getId()).max().getAsInt()))));

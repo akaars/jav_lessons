@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.File;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -53,7 +54,9 @@ public class AddrHelper extends HelperBase {
     if (isElementExists(By.name("new_group"))) {
       new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
     }
-    attach(By.name("photo"), addressForm.getPhoto());
+    if(!(addressForm.getPhoto() == null)){
+     attach(By.name("photo"), (new File(addressForm.getPhoto())));
+    }
   }
 
   public void add(AddressForm addrEntry) {

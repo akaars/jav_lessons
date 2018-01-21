@@ -220,7 +220,7 @@ public class AddressForm {
 
   public String getAllEmails() { return allEmails; }
 
-  public File getPhoto() { return new File(photo); }
+  public String getPhoto() {return photo; }
 
   @Override
   public boolean equals(Object o) {
@@ -246,7 +246,4 @@ public class AddressForm {
             ", id='" + id + '\'' +
             '}';
   }
-
-
-
 }
