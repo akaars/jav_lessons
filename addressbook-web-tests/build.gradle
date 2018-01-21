@@ -1,5 +1,3 @@
-import org.gradle.api.tasks.testing.Test
-
 apply plugin: 'java'
 
 repositories {
@@ -31,6 +29,9 @@ task testGroups(type: Test) {
     if (project.hasProperty('headless')) {
         systemProperty 'headless', "${headless}"
     }
+    if (project.hasProperty('verifyUi')) {
+        systemProperty 'verifyUi', "${verifyUi}"
+    }
 }
 
 task testContacts(type: Test) {
@@ -42,5 +43,8 @@ task testContacts(type: Test) {
     }
     if (project.hasProperty('headless')) {
         systemProperty 'headless', "${headless}"
+    }
+    if (project.hasProperty('verifyUi')) {
+        systemProperty 'verifyUi', "${verifyUi}"
     }
 }

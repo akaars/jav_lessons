@@ -1,6 +1,8 @@
 package il.stqa.jav.addressbook.tests;
 
 import il.stqa.jav.addressbook.appmanager.ApplicationManager;
+import il.stqa.jav.addressbook.model.GroupForm;
+import il.stqa.jav.addressbook.model.Groups;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +13,10 @@ import org.testng.annotations.BeforeSuite;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.equalToObject;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by ilya on 12/3/17
@@ -43,4 +49,12 @@ public class TestBase {
     logger.info("Stop test " + m.getName());
   }
 
+  public void verifyGroupListInUI() {
+    if (Boolean.getBoolean("verifyUi")) {
+      Groups dbGroups = app.db().groups();
+      Groups uiGroups = app.group().all();
+      assertThat(uiGroups, equalToObject(dbGroups.stream().map((g)->
+              new GroupForm().withName(g.getGroupName()).withId(g.getGroupId())).collect(Collectors.toSet())));
+    }
+  }
 }
