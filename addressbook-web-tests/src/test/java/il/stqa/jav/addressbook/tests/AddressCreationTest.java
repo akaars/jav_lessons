@@ -5,10 +5,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import il.stqa.jav.addressbook.model.AddressForm;
 import il.stqa.jav.addressbook.model.Addrs;
+import il.stqa.jav.addressbook.model.Groups;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,9 +24,10 @@ public class AddressCreationTest extends TestBase{
 
   @Test(enabled=true, dataProvider = "validGroupsJson")
   public void testNewAddressCreation(AddressForm addr) {
+    Groups groups = app.db().groups();
     Addrs before = app.db().addrs();
     File photo = new File("src/test/resources/avatar.jpg");
-    addr.withPhoto(photo);
+    addr.withPhoto(photo).inGroup(groups.iterator().next());
     app.goTo().home();
     app.addr().add(addr);
     Addrs after = app.db().addrs();

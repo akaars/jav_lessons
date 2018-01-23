@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 import java.io.File;
 import java.util.List;
@@ -51,8 +52,10 @@ public class AddrHelper extends HelperBase {
     sendText(By.name("email2"), addressForm.geteMail2());
     sendText(By.name("email3"), addressForm.geteMail3());
 
-    if (isElementExists(By.name("new_group"))) {
-      new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
+    if (addressForm.getGroups().size() > 0) {
+      Assert.assertTrue(addressForm.getGroups().size() == 1);
+      new Select(wd.findElement(By.name("new_group"))).
+              selectByVisibleText(addressForm.getGroups().iterator().next().getGroupName());
     }
     if(!(addressForm.getPhoto() == null)){
      attach(By.name("photo"), (new File(addressForm.getPhoto())));
