@@ -31,7 +31,7 @@ public class AddressCreationTest extends TestBase{
       app.group().create(new GroupForm().withName("test_group"));
     }
   }
-  
+
   @Test(enabled=true, dataProvider = "validGroupsJson")
   public void testNewAddressCreation(AddressForm addr) {
     Groups groups = app.db().groups();
