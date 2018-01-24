@@ -1,13 +1,11 @@
 package il.stqa.jav.addressbook.tests;
 
 import il.stqa.jav.addressbook.model.AddressForm;
-import il.stqa.jav.addressbook.model.GroupForm;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -42,10 +40,11 @@ public class HbConnectionTest {
     Session session = sessionFactory.openSession();
     session.beginTransaction();
     List<AddressForm> result = session.createQuery( "from AddressForm where deprecated='0000-00-00'" ).list();
-    for ( AddressForm address : result ) {
-      System.out.println(address);
-    }
     session.getTransaction().commit();
     session.close();
+    for ( AddressForm address : result ) {
+      System.out.println(address);
+      System.out.println(address.getGroups());
+    }
   }
 }

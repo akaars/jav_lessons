@@ -2,10 +2,12 @@ package il.stqa.jav.addressbook.appmanager;
 
 import il.stqa.jav.addressbook.model.AddressForm;
 import il.stqa.jav.addressbook.model.Addrs;
+import il.stqa.jav.addressbook.model.GroupForm;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 import java.io.File;
 import java.util.List;
@@ -51,8 +53,10 @@ public class AddrHelper extends HelperBase {
     sendText(By.name("email2"), addressForm.geteMail2());
     sendText(By.name("email3"), addressForm.geteMail3());
 
-    if (isElementExists(By.name("new_group"))) {
-      new Select(wd.findElement(By.name("new_group"))).getFirstSelectedOption();
+    if (addressForm.getGroups().size() > 0) {
+      Assert.assertTrue(addressForm.getGroups().size() == 1);
+      new Select(wd.findElement(By.name("new_group"))).
+              selectByVisibleText(addressForm.getGroups().iterator().next().getGroupName());
     }
     if(!(addressForm.getPhoto() == null)){
      attach(By.name("photo"), (new File(addressForm.getPhoto())));
@@ -98,6 +102,26 @@ public class AddrHelper extends HelperBase {
     wd.findElement(By.cssSelector("input[value='" + id + "'")).click();
   }
 
+  public void selectDisplayGroup(String name) {
+    new Select(wd.findElement(By.name("group"))).selectByVisibleText(name);
+  }
+
+
+  public void addAddrToGroup(AddressForm addr, GroupForm group) {
+    selectById(addr.getId());
+    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getGroupName());
+    clickElement(By.name("add"));
+  }
+
+  public void removeFromGroup(String name) {
+    clickElement(By.name("remove"));
+  }
+
+  public void removeAddrFromGroup(AddressForm addr, GroupForm group) {
+    selectDisplayGroup(group.getGroupName());
+    selectById(addr.getId());
+    removeFromGroup(group.getGroupName());
+  }
 
   public AddressForm getAddrDetailsFromEdit(AddressForm addr) {
     AddressForm address = new AddressForm();
@@ -116,4 +140,5 @@ public class AddrHelper extends HelperBase {
             .withId(addr.getId());
     return address;
   }
+
 }

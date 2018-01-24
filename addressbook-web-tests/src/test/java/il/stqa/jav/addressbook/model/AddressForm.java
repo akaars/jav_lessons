@@ -5,7 +5,9 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name="addressbook")
@@ -20,8 +22,7 @@ public class AddressForm {
   private String secondName;
   private String nickName;
   private String title;
-  @Transient
-  private String group;
+
   @Column(name="address")
   @Type(type="text")
   private String physicalAddr;
@@ -65,7 +66,10 @@ public class AddressForm {
   @Column(name="photo")
   @Type(type="text")
   private String photo;
-
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"),
+          inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupForm> groups = new HashSet<GroupForm>();
 
   public AddressForm withPhoto(File photo) {
     this.photo = photo.getPath();
@@ -97,9 +101,8 @@ public class AddressForm {
     return this;
   }
 
-  public AddressForm withGroup(String group) {
-    this.group = group;
-    return this;
+  public Groups getGroups() {
+    return new Groups(groups);
   }
 
   public AddressForm withPhysicalAddr(String physicalAddr) {
@@ -190,8 +193,6 @@ public class AddressForm {
     return title;
   }
 
-  public String getGroup() { return group; }
-
   public String getPhysicalAddr() {
     return physicalAddr;
   }
@@ -245,5 +246,10 @@ public class AddressForm {
             ", secondName='" + secondName + '\'' +
             ", id='" + id + '\'' +
             '}';
+  }
+
+  public AddressForm inGroup(GroupForm group) {
+    groups.add(group);
+    return this;
   }
 }
