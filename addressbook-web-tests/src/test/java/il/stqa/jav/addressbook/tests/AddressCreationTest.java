@@ -5,7 +5,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import il.stqa.jav.addressbook.model.AddressForm;
 import il.stqa.jav.addressbook.model.Addrs;
+import il.stqa.jav.addressbook.model.GroupForm;
 import il.stqa.jav.addressbook.model.Groups;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -22,6 +24,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class AddressCreationTest extends TestBase{
 
+  @BeforeMethod
+  public void ensurePreconditions() {
+    if (app.db().groups().size() == 0) {
+      app.goTo().groupLink();
+      app.group().create(new GroupForm().withName("test_group"));
+    }
+  }
+  
   @Test(enabled=true, dataProvider = "validGroupsJson")
   public void testNewAddressCreation(AddressForm addr) {
     Groups groups = app.db().groups();
