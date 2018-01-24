@@ -16,7 +16,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 /**
  * Created by ilya on 1/24/18
  */
-public class AddrToFromGroup extends TestBase{
+public class AddAddrToGroup extends TestBase{
   @BeforeMethod
   public void ensurePreconditions() {
     if (app.db().addrs().size() == 0){
@@ -30,29 +30,24 @@ public class AddrToFromGroup extends TestBase{
   }
 
   @Test
-  public void addRemoveContactToFromGroup() {
+  public void addContactToGroup() {
     Addrs listOfContacts = app.db().addrs();
     AddressForm addr = listOfContacts.iterator().next();
     Groups listOfGroups = app.db().groups();
     GroupForm group = listOfGroups.iterator().next();
     app.goTo().home();
-    if (!addr.getGroups().isEmpty()) {
-      if(addr.getGroups().contains(group)) {
+    if (!addr.getGroups().isEmpty() && addr.getGroups().contains(group)) {
         //If the the selected address already assigned to the group lets unassign it first
         app.addr().removeAddrFromGroup(addr, group);
         assertThat(addr.getGroups().without(group), CoreMatchers.equalTo(app.db().addrs().stream().
                 filter((a)->a.getId() == addr.getId()).collect(Collectors.toList()).get(0).getGroups()));
         app.goTo().home();
-      }
+//      }
     }
     //Display all groups
     app.addr().selectDisplayGroup("[all]");
     app.addr().addAddrToGroup(addr, group);
     assertThat(addr.getGroups().withAdded(group), CoreMatchers.equalTo(app.db().addrs().stream().
-            filter((a)->a.getId() == addr.getId()).collect(Collectors.toList()).get(0).getGroups()));
-    app.goTo().home();
-    app.addr().removeAddrFromGroup(addr, group);
-    assertThat(addr.getGroups().without(group), CoreMatchers.equalTo(app.db().addrs().stream().
             filter((a)->a.getId() == addr.getId()).collect(Collectors.toList()).get(0).getGroups()));
   }
 
