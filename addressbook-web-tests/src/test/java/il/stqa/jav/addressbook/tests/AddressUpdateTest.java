@@ -31,6 +31,7 @@ public class AddressUpdateTest extends TestBase{
     Addrs after =  app.db().addrs();
     assertThat(after.size(), equalTo(before.size()));
     assertThat(after, equalTo(before.without(addrToUpdate).withAdded(addrForm)));
+    verifyAddressListUI();
   }
 
 }

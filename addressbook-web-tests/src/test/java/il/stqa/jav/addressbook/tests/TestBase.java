@@ -1,6 +1,7 @@
 package il.stqa.jav.addressbook.tests;
 
 import il.stqa.jav.addressbook.appmanager.ApplicationManager;
+import il.stqa.jav.addressbook.model.Addrs;
 import il.stqa.jav.addressbook.model.GroupForm;
 import il.stqa.jav.addressbook.model.Groups;
 import org.openqa.selenium.remote.BrowserType;
@@ -55,6 +56,14 @@ public class TestBase {
       Groups uiGroups = app.group().all();
       assertThat(uiGroups, equalToObject(dbGroups.stream().map((g)->
               new GroupForm().withName(g.getGroupName()).withId(g.getGroupId())).collect(Collectors.toSet())));
+    }
+  }
+
+  protected void verifyAddressListUI() {
+    if (Boolean.getBoolean("verifyUi")) {
+      Addrs dbAddrs = app.db().addrs();
+      Addrs uiAddrs = app.addr().all();
+      assertThat(uiAddrs, equalToObject(dbAddrs));
     }
   }
 }
