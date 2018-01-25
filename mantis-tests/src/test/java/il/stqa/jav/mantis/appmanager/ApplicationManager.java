@@ -19,8 +19,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class ApplicationManager {
   private final Properties properties;
-  WebDriver wd;
+  private WebDriver wd;
   private String browser;
+  private RegistrationHelper registrationHelper;
+  private FtpHelper ftp;
 
 
   public ApplicationManager(String browser) {
@@ -33,35 +35,13 @@ public class ApplicationManager {
     String target = System.getProperty("target", "local");
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
-    if (browser.equals(BrowserType.FIREFOX)) {
-      String ffLocation = new String();
-      if (SystemUtils.IS_OS_LINUX) {
-        ffLocation = properties.getProperty("ff.linuxLocation");
-      } else if (SystemUtils.IS_OS_MAC) {
-        ffLocation = properties.getProperty("ff.macLocation");
-      }
-      FirefoxOptions options = new FirefoxOptions();
-      options.addArguments(String.format("window-size=%s", properties.getProperty("web.windowSize")));
-      options.setLegacy(true);
-      options.setBinary(ffLocation);
-
-      wd = new FirefoxDriver(options);
-    } else if (browser.equals(BrowserType.CHROME)) {
-      ChromeOptions options = new ChromeOptions();
-      options.addArguments(String.format("window-size=%s", properties.getProperty("web.windowSize")));
-      wd = new ChromeDriver(options);
-    } else {
-      System.out.println("Unsupported browser");
-      System.exit(1);
-    }
-
-    wd.manage().timeouts().implicitlyWait(Integer.parseInt((properties.getProperty("wd.Timeout"))), TimeUnit.SECONDS);
-    wd.get(properties.getProperty("web.baseUrl"));
   }
 
 
   public void stop() {
-    wd.quit();
+    if (wd != null) {
+      wd.quit();
+    }
   }
 
   public HttpSession newSession() {
@@ -70,5 +50,49 @@ public class ApplicationManager {
 
   public  String getProperty(String key) {
     return properties.getProperty(key);
+  }
+
+  public RegistrationHelper registration() {
+    if (registrationHelper == null) {
+      registrationHelper =  new RegistrationHelper(this);
+    }
+    return registrationHelper;
+  }
+
+  public WebDriver getDriver() {
+    if (wd == null) {
+      if (browser.equals(BrowserType.FIREFOX)) {
+        String ffLocation = new String();
+        if (SystemUtils.IS_OS_LINUX) {
+          ffLocation = properties.getProperty("ff.linuxLocation");
+        } else if (SystemUtils.IS_OS_MAC) {
+          ffLocation = properties.getProperty("ff.macLocation");
+        }
+        FirefoxOptions options = new FirefoxOptions();
+        options.addArguments(String.format("window-size=%s", properties.getProperty("web.windowSize")));
+        options.setLegacy(true);
+        options.setBinary(ffLocation);
+
+        wd = new FirefoxDriver(options);
+      } else if (browser.equals(BrowserType.CHROME)) {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments(String.format("window-size=%s", properties.getProperty("web.windowSize")));
+        wd = new ChromeDriver(options);
+      } else {
+        System.out.println("Unsupported browser");
+        System.exit(1);
+      }
+
+      wd.manage().timeouts().implicitlyWait(Integer.parseInt((properties.getProperty("wd.Timeout"))), TimeUnit.SECONDS);
+      wd.get(properties.getProperty("web.baseUrl"));
+    }
+    return wd;
+  }
+
+  public FtpHelper ftp() {
+    if (ftp == null) {
+      ftp = new FtpHelper(this);
+    }
+    return ftp;
   }
 }
