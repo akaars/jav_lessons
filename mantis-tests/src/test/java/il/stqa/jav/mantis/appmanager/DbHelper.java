@@ -8,6 +8,7 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
 import java.util.List;
+import java.util.Random;
 
 public class DbHelper {
   private final SessionFactory sessionFactory;
@@ -32,12 +33,9 @@ public class DbHelper {
   }
 
   public MantisUser randomUser(List<MantisUser> listOfUsers){
-    for(MantisUser user:listOfUsers){
-      if (user.getUsername().contains("user")){
-        return user;
-      }
-    }
-    return null;
+    Random rand = new Random();
+    MantisUser user = listOfUsers.get(rand.nextInt(listOfUsers.size()));
+    return user;
   }
 }
 
