@@ -3,11 +3,13 @@ package il.stqa.jav.mantis.appmanager;
 import il.stqa.jav.mantis.model.MailMessage;
 import org.apache.commons.net.telnet.TelnetClient;
 
-import javax.mail.Session;
-import javax.mail.Store;
+import javax.mail.*;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JamesHelper {
   private ApplicationManager app;
@@ -28,10 +30,16 @@ public class JamesHelper {
   public void createUser(String user, String password) {
     initTelnetSession();
     write("adduser " + user + " " + password);
-    String result = readUntil("User " + name + " added");
+    String result = readUntil("User " + user + " added");
     closeTelnetSession();
   }
 
+  public void deleteUser(String user, String password) {
+    initTelnetSession();
+    write("deluser " + user);
+    String result = readUntil("User " + user + " deleted");
+    closeTelnetSession();
+  }
   private void closeTelnetSession() {
     write("quit");
   }
@@ -70,8 +78,8 @@ public class JamesHelper {
       StringBuffer sb = new StringBuffer();
       char ch = (char) in.read();
       while (true) {
-        System.out.print(char);
-        sb.append(char);
+        System.out.print(ch);
+        sb.append(ch);
         if(ch == lastChar){
           if (sb.toString().endsWith(pattern)){
             return sb.toString();
@@ -85,7 +93,40 @@ public class JamesHelper {
     return null;
   }
 
-  public List<MailMessage> waitForMail(int count, int timeout) {
+  public List<MailMessage> waitForMail(int count, long timeout) throws MessagingException, IOException {
     return null;
+  }
+
+  private Folder openInbox(String username, String password) throws MessagingException {
+    store = mailSession.getStore("pop3");
+    store.connect(mailserver, 1110, username, password);
+    Folder folder = store.getDefaultFolder().getFolder("INBOX");
+    folder.open(Folder.READ_WRITE);
+    return folder;
+  }
+
+  private void closeFolder(Folder folder) throws MessagingException {
+    folder.close(true);
+    store.close();
+  }
+
+  public List<MailMessage> getAllMail(String username, String password) throws MessagingException {
+    Folder inbox = openInbox(username, password);
+    List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map((m)->toModelMail(m));
+    closeFolder(inbox);
+    return messages;
+  }
+
+  private static MailMessage toModelMail(Message m) {
+    try{
+      return new MailMessage(m.getAllRecipients()[0].toString(), (String)m.getContent());
+    }catch (MessagingException e) {
+      e.printStackTrace();
+      return null;
+    }catch (IOException e){
+      e.printStackTrace();
+      return null;
+    }
+
   }
 }
