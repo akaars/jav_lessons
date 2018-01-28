@@ -23,5 +23,7 @@ public class UiHelper extends HelperBase{
     clickElement(By.linkText(username));
     clickElement(By.cssSelector("input[value='Reset Password'"));
     }
+
+  public void gotoLink(String link) {wd.get(link);}
   }
 

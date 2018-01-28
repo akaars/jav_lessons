@@ -151,4 +151,10 @@ public class JamesHelper {
     closeFolder(inbox);
   }
 
+  public boolean verifyUserExist(String username) {
+    initTelnetSession();
+    write("listusers");
+    String result = readUntil("Existing accounts");
+    return result.contains(username);
+  }
 }
