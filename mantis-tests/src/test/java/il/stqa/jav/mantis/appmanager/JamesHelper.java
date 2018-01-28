@@ -57,9 +57,9 @@ public class JamesHelper {
       e.printStackTrace();
     }
     readUntil("Login id:");
-    write("");
-    readUntil("Password");
-    write("");
+    write(login);
+    readUntil("Password:");
+    write(password);
   }
 
   private void write(String value) {
@@ -93,8 +93,21 @@ public class JamesHelper {
     return null;
   }
 
-  public List<MailMessage> waitForMail(int count, long timeout) throws MessagingException, IOException {
-    return null;
+  public List<MailMessage> waitForMail(int count, long timeout, String username, String password)
+          throws MessagingException, IOException {
+    long start = System.currentTimeMillis();
+    while (System.currentTimeMillis() < start + timeout) {
+      List<MailMessage> allMail = getAllMail(username, password);
+      if(allMail.size() > 0) {
+        return allMail;
+      }
+      try {
+        Thread.sleep(1000);
+      }catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    throw new Error("No mail received");
   }
 
   private Folder openInbox(String username, String password) throws MessagingException {
@@ -112,7 +125,8 @@ public class JamesHelper {
 
   public List<MailMessage> getAllMail(String username, String password) throws MessagingException {
     Folder inbox = openInbox(username, password);
-    List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map((m)->toModelMail(m));
+    List<MailMessage> messages = Arrays.stream(inbox.getMessages())
+            .map(JamesHelper::toModelMail).collect(Collectors.toList());
     closeFolder(inbox);
     return messages;
   }
@@ -127,6 +141,14 @@ public class JamesHelper {
       e.printStackTrace();
       return null;
     }
-
   }
+
+  private void drainEmail(String username, String password) throws MessagingException {
+    Folder inbox = openInbox(username, password);
+    for (Message message : inbox.getMessages()){
+      message.setFlag(Flags.Flag.DELETED, true);
+    }
+    closeFolder(inbox);
+  }
+
 }
