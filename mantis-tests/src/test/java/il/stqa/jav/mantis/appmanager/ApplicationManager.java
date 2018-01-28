@@ -25,6 +25,7 @@ public class ApplicationManager {
   private FtpHelper ftp;
   private MailHelper mail;
   private JamesHelper jamesHelper;
+  private UiHelper uiHelper;
 
 
   public ApplicationManager(String browser) {
@@ -59,6 +60,13 @@ public class ApplicationManager {
       registrationHelper =  new RegistrationHelper(this);
     }
     return registrationHelper;
+  }
+
+  public UiHelper uiHelper() {
+    if (uiHelper == null) {
+      uiHelper = new UiHelper(this);
+    }
+    return uiHelper;
   }
 
   public WebDriver getDriver() {
