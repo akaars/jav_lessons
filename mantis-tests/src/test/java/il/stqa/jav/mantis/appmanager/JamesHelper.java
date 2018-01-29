@@ -143,7 +143,7 @@ public class JamesHelper {
     }
   }
 
-  private void drainEmail(String username, String password) throws MessagingException {
+  public void drainEmail(String username, String password) throws MessagingException {
     Folder inbox = openInbox(username, password);
     for (Message message : inbox.getMessages()){
       message.setFlag(Flags.Flag.DELETED, true);
@@ -156,5 +156,11 @@ public class JamesHelper {
     write("listusers");
     String result = readUntil("Existing accounts");
     return result.contains(username);
+  }
+
+  public void deleteUser(String username){
+    initTelnetSession();
+    write("deluser " + username);
+    readUntil("User ");
   }
 }

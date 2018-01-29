@@ -2,7 +2,6 @@ package il.stqa.jav.mantis.appmanager;
 
 import il.stqa.jav.mantis.model.MailMessage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import ru.lanwen.verbalregex.VerbalExpression;
 
 import java.util.List;
@@ -21,6 +20,7 @@ public class RegistrationHelper extends HelperBase{
   }
 
   public void finish(String confirmationLink, String password) {
+    /*This function can be used on both confirmation and password reset links*/
     wd.get(confirmationLink);
     sendText(By.name("password"), password);
     sendText(By.name("password_confirm"), password);
@@ -28,6 +28,7 @@ public class RegistrationHelper extends HelperBase{
   }
 
   public String findLink(List<MailMessage> mailMessages, String email) {
+    /*This function extracts URL from mail message body*/
     MailMessage mailMessage = mailMessages.stream().filter((m)->m.to.equals(email)).findFirst().get();
     VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
     return regex.getText(mailMessage.text);

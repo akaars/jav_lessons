@@ -40,15 +40,18 @@ public class ChangeUserPasswordTest extends TestBase {
     List<MantisUser> users = app.db().users();
     MantisUser user = app.db().randomUser(users);
     String username = user.getUsername();
-    String password = user.getUsername();
+    String password = user.getUsername() + "blablabla";
     String email = username + "@localhost";
-    if(!app.james().verifyUserExist(username)) {
-      app.james().createUser(username, password);
-    }
+    //Assure the selected user doesn't exist in James. If exists - delete it, re-create and empty it's inbox
+    app.james().deleteUser(username);
+    app.james().createUser(username, password);
+    app.james().drainEmail(username, password);
     app.uiHelper().login(app.getProperty("web.adminLogin"), app.getProperty("web.adminPass"));
     app.uiHelper().resetPassword(user.getUsername());
     List<MailMessage> mailMessages = app.james().waitForMail(2, 60000, username, password);
     String resetLink = app.registration().findLink(mailMessages, email);
-    app.uiHelper().gotoLink(resetLink);
+    System.out.println(resetLink);
+    app.registration().finish(resetLink, password);
+    assertTrue(app.newSession().login(username, password));
   }
 }
