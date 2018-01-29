@@ -33,9 +33,10 @@ public class DbHelper {
     return result;
   }
 
-  public MantisUser randomUser(List<MantisUser> listOfUsers){
-    List<MantisUser> filteredUsers = listOfUsers.stream().filter((u)->u.getUsername()
-            .contains("user")).collect(Collectors.toList());
+  public MantisUser randomUser(List<MantisUser> listOfUsers, int excludeAccessLevel){
+    /*function selects a random user from existing all non-administrators*/
+    List<MantisUser> filteredUsers = listOfUsers.stream()
+            .filter((u)->u.getAccessLevel()!=excludeAccessLevel).collect(Collectors.toList());
     if(filteredUsers.size() == 0) {
       return null;
     }

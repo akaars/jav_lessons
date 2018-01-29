@@ -19,7 +19,7 @@ public class ChangeUserPasswordTest extends TestBase {
   //get list of all users from the DB. If no username containing 'user', create such user
   public void preCondition() throws IOException, MessagingException {
     List<MantisUser> users = app.db().users();
-    MantisUser randomUser = app.db().randomUser(users);
+    MantisUser randomUser = app.db().randomUser(users, 90);
     if (randomUser == null){
       System.out.println("No user found");
       long now = System.currentTimeMillis();
@@ -38,7 +38,7 @@ public class ChangeUserPasswordTest extends TestBase {
   @Test
   public void changeUserPassword() throws IOException, MessagingException {
     List<MantisUser> users = app.db().users();
-    MantisUser user = app.db().randomUser(users);
+    MantisUser user = app.db().randomUser(users, 90);
     String username = user.getUsername();
     String password = user.getUsername() + "blablabla";
     String email = username + "@localhost";

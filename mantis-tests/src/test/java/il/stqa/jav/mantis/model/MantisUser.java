@@ -3,9 +3,7 @@ package il.stqa.jav.mantis.model;
 import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name="mantis_user_table")
@@ -19,6 +17,9 @@ public class MantisUser {
   @Expose
   @Column(name="email")
   private String email;
+  @Expose
+  @Column(name="access_level", columnDefinition = "SMALLINT")
+  private int accessLevel;
   @Expose
   @Id
   @Column(name="id")
@@ -42,6 +43,10 @@ public class MantisUser {
     return this;
   }
 
+  public MantisUser withAccessLevel(int accessLevel) {
+    this.accessLevel = accessLevel;
+    return this;
+  }
   public MantisUser withId(int id) {
     this.id = id;
     return this;
@@ -52,15 +57,13 @@ public class MantisUser {
   public int getId() {
     return id;
   }
-
   public String getUsername() {
     return username;
   }
-
   public String getRealname() {
     return realname;
   }
-
+  public int getAccessLevel() { return accessLevel; }
   public String getEmail() {
     return email;
   }
@@ -73,6 +76,7 @@ public class MantisUser {
     MantisUser that = (MantisUser) o;
     return Objects.equals(username, that.username) &&
             Objects.equals(email, that.email) &&
+            Objects.equals(accessLevel, that.accessLevel) &&
             Objects.equals(id, that.id);
   }
 
