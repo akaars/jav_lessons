@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="tests" parallel="tests" thread-count="2">
+
+    <test name="Groups">
+        <classes>
+            <class name="il.stqa.jav.addressbook.tests.GroupCreationTests"/>
+            <class name="il.stqa.jav.addressbook.tests.GroupDeletionTest"/>
+            <class name="il.stqa.jav.addressbook.tests.GroupModifyTest"/>
+        </classes>
+    </test>
+
+</suite>
