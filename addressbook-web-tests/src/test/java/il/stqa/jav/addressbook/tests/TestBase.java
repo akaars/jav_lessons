@@ -51,7 +51,7 @@ public class TestBase {
   }
 
   public void verifyGroupListInUI() {
-    if (Boolean.getBoolean("verifyUi")) {
+    if (Boolean.parseBoolean(System.getProperty("verifyUi", "false"))) {
       Groups dbGroups = app.db().groups();
       Groups uiGroups = app.group().all();
       assertThat(uiGroups, equalToObject(dbGroups.stream().map((g)->
@@ -60,7 +60,7 @@ public class TestBase {
   }
 
   protected void verifyAddressListUI() {
-    if (Boolean.getBoolean("verifyUi")) {
+    if (Boolean.parseBoolean(System.getProperty("verifyUi", "false"))) {
       Addrs dbAddrs = app.db().addrs();
       Addrs uiAddrs = app.addr().all();
       assertThat(uiAddrs, equalToObject(dbAddrs));
