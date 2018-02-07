@@ -2,7 +2,6 @@ package il.stqa.jav.addressbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Created by ilya on 12/3/17
@@ -26,11 +25,12 @@ public class NavigationHelper extends HelperBase {
     if (isElementExists(By.id("maintable"))) {
       return;
     }
-    clickElement(By.linkText("home"));
+    clickElement(By.linkText("HOME"));
   }
 
   public void submit() { clickElement(By.name("submit")); }
 
-  public void home() { clickElement(By.linkText("home")); }
+  public void home() {
+    clickElement(By.xpath("//img[contains(@title,'Addressbook')]")); }
 
 }

@@ -17,7 +17,8 @@ public class AddrHelper extends HelperBase {
   AddrHelper(WebDriver wd) { super(wd); }
 
   private void gotoNewAddrLink() {
-    clickElement(By.linkText("add new"));
+    clickElement(By.cssSelector("a[href*='edit.php']"));
+//    clickElement(By.linkText("add new"));
   }
 
   public void acceptAlert() { wd.switchTo().alert().accept(); }
